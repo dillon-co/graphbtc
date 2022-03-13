@@ -135,8 +135,8 @@
                   </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-6 col-xl-4">
-                  <div class="card border-0 shadow-sm mb-4 ">
-                    <div class="card-header border-0 bg-none">
+                  <div class="card border-0 shadow-s3 pb-5">
+                    <div class="card-header border-0 bg-none pb-5">
                       <div class="row">
                         <div class="col align-self-center">
                           <p class="fs15">Invoice Flow</p>
@@ -185,7 +185,7 @@
               </div>
 
                 <div class="row">
-                    <div class="col-12 col-md-6 col-lg-6 col-xl-8 mb-4">
+                    <div class="col-12 col-md-6 col-lg-6 col-xl-12 mb-4">
                         <div class="card border-0 shadow-sm mb-4">
                             <div class="card-header border-0 bg-none">
                                 <div class="row">
@@ -198,27 +198,26 @@
                                 <br />
                                 <div class="areachart">
                                         <canvas baseChart [datasets]="mixedlinechartjsData" [labels]="mixedlinechartjsLabels" [options]="mixedlinechartjsOptions" [legend]="mixedlinechartjsLegend" [chartType]="mixedlinechartjsType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-                                    </div>
-                                <br />
-                                <!-- <div class="row" *ngFor="d in mixedlinechartjsData">
-                                    <div class="col-auto border-left-dashed">
+                                  </div>
+                                <div class="row" *ngFor="let d of mixedlinechartjsData">
+                                    <div class="col-3">
                                         <div class="row">
                                             <div class="col-auto">
                                                 <i class="material-icons fs15 vm" [ngStyle]="{'color': d['borderColor']}">album</i>
                                             </div>
                                             <div class="col pl-0">
                                                 <p>
-                                                    {{d['tag']}}
+                                                    {{ d['label'].split('_').join(' ')}}
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
-                                </div> -->
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-4">
+                    <!-- <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-4">
                       <div class="card border-0 shadow-sm overflow-hidden h-100">
                         <div class="card-header border-0 bg-none">
                           <div class="row">
@@ -264,9 +263,9 @@
                           </ul>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                 </div>
-                <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+                <!-- <div class="col-12 col-md-6 col-lg-6 col-xl-4">
                     <div class="card border-0 shadow-sm mb-4">
                         <div class="card-header border-0 bg-none">
                             <div class="row">
@@ -365,8 +364,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+                </div> -->
+                <!-- <div class="col-12 col-md-6 col-lg-6 col-xl-4">
                     <div class="card border-0 shadow-sm mb-4 overflow-hidden">
                         <div class="card-header border-0 bg-none overlay-header">
                             <div class="row">
@@ -400,8 +399,8 @@
                             </button>
                         </div>
                     </div>
-                </div>
-            <div class="row">
+                </div> -->
+            <!-- <div class="row">
                 <div class="col-12 col-md-12 col-lg-12 col-xl-8 mb-4">
                     <div class="card border-0 shadow-sm overflow-hidden h-100">
                         <div class="card-header border-0 bg-none">
@@ -786,8 +785,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
+            </div> -->
+            <!-- <div class="row">
                 <div class="col-12 col-md-6 col-lg-6 col-xl-4 ">
                     <div class="card border-0 shadow-sm overflow-hidden mb-4">
                         <div class="card-header border-0 bg-none">
@@ -1016,14 +1015,14 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
 
 
 
 
 
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-12 col-sm-12 col-md-7 col-lg-8 mb-4">
             <ngb-carousel>
                 <ng-template ngbSlide *ngFor="let slider of sliders" >
@@ -1042,5 +1041,5 @@
                     </ng-template>
                 </ngb-carousel>
         </div>
-    </div>
+    </div> -->
 </div>
