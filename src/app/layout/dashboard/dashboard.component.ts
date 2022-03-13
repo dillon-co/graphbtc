@@ -1,5 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
+import { lnsocket_init } from '../../../lnsocket';
+
+const compiled = new WebAssembly.Module(fs.readFileSync(__dirname + "/lnsocket_module.wasm"));
 
 declare var $: any;
 
@@ -387,6 +390,7 @@ export class DashboardComponent implements OnInit {
     public summaryChart1Labels: string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
     public summaryChart1Type: string;
     public summaryChart1Legend: boolean;
+    public LNSocket 
 
     public summaryChart1Data: any[] = [
         {
@@ -855,6 +859,18 @@ export class DashboardComponent implements OnInit {
         this.donughtchartType = 'doughnut';
         this.linechartlargeType = 'line';
         this.barchartsType = 'bar';
+
+	/* Connect to the lightning node */
+	const LNSocket = await lnsocket_init();
+	this.ln = LNSocket();
+
+	ln.genkey()
+	await ln.connect_and_init("02cca6c5c966fcf61d121e3a70e03a1cd9eeeea024b26ea666ce974d43b242e636", "104.131.77.55:9999")
+
+	const rune = "NZG2PwTxSltQt3JMtlbwz1dxOdNnnssWH5Sztk6pKdM9MTEmbWV0aG9kXmxpc3R8bWV0aG9kXmdldHxtZXRob2Q9c3VtbWFyeSZtZXRob2QvZ2V0c2hhcmVkc2VjcmV0Jm1ldGhvZC9saXN0ZGF0YXN0b3Jl"
+
+	const res = await ln.rpc({ method: "getinfo", rune })
+	document.body.innerHTML = `<pre>${JSON.stringify(res.result, undefined, 2)}</pre>`
 
         $('#mapwrap').vectorMap({
             map: 'world_mill'
