@@ -623,7 +623,7 @@ export class DashboardComponent implements OnInit {
         var total = credit - debit;
         var t = this.incomeEvents[i]['timestamp']
         var tag = this.incomeEvents[i]['tag']
-        var hasDataWithTag: false
+        var hasDataWithTag: Boolean
         if (this.mixedlinechartjsData.length > 0) {
           for (var i in this.mixedlinechartjsData) {
             hasDataWithTag = false
