@@ -1,0 +1,25 @@
+<!--  -->
+<!-- <app-sidebar (collapsedEvent)="receiveCollapsed($event)" class="sidebar"></app-sidebar> -->
+
+<!-- wrapper starts -->
+<div class="wrapper" (click)="toggleSidebar()">
+    <div class="content shadow-sm">
+        <div class="container-fluid header-container">
+            <div class="row header">
+                <app-header class="container-fluid " id="header-container"></app-header>
+            </div>
+            <div class="row submenu">
+                <app-subheader class="container-fluid" id="submenu-container"></app-subheader>
+            </div>
+        </div>
+
+        <!-- Main container starts -->
+        <div class="container main-container" id="main-container" v>
+            <router-outlet></router-outlet>
+        </div>
+        <!-- Main container ends -->
+    </div>
+
+    <app-footer class="footer position-relative d-block"></app-footer>
+</div>
+<!-- wrapper ends -->

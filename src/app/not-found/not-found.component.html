@@ -1,0 +1,63 @@
+<div class="wrapper">
+    <div class="content shadow-sm position-relative">
+        <header class="header">
+            <!-- Fixed navbar -->
+            <nav class="container-fluid">
+                <div class="row">
+                    <div class="col align-self-center">
+                        <a href="" class="logo text-white">
+                            <img src="assets/images/logoicon.svg" alt="" class="logo-icon">
+                            <div class="logo-text">
+                                <h5 class="fs22 mb-0">AdminUX <sup class="badge badge-danger">PRO</sup></h5>
+                                <p class="text-uppercase fs11">Admin Dashboard</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col text-right align-self-center">
+                        <a [routerLink]="['/signup']" class="btn btn-sm btn-primary text-uppercase">Register</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="background opac" style="background-image: url('assets/images/404.jpg');">
+        </div>
+
+        <!-- Main container starts -->
+        <div class="container main-container" id="main-container">
+            <div class="row login-row-height">
+                <div class="col-8 col-md-6 col-lg-5 col-xl-4 mx-auto align-self-center text-center">
+                    <h1 class="display-0 mb-0">404</h1>
+                    <h1 class="font-weight-light mt-0">Page not found!</h1>
+                    <p>There might be some issue with Typing or URL</p>
+                    <br>
+                    <a [routerLink]="['/dashboard']" class="btn btn-outline-light">Go back to Dashboard</a>
+                </div>
+            </div>
+        </div>
+        <!-- Main container ends -->
+    </div>
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-md text-center text-md-left align-self-center">
+                    <p>All rights reserved by <a href="">Maxartkiller</a></p>
+                </div>
+                <div class="col-12 col-md-auto text-center text-md-right">
+                    <ul class="nav justify-content-center justify-md-content-end">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="javascript:void(0)">Terms of use</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0)">Privacy Policy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0)">Contact us</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</div>
+<!-- wrapper ends -->

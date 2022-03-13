@@ -1,0 +1,990 @@
+<div [@routerTransition]>
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-6 col-xl-3">
+            <div class="card border-0 shadow-sm overflow-hidden mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-auto text-center">
+                            <i class="material-icons icons bg-primary md-36 icon-50">monetization_on</i>
+                        </div>
+                        <div class="col pl-0">
+                            <p class="mb-0">Total Profit</p>
+                            <h4 class="font-weight-light"><small>$</small> 25,410</h4>
+                        </div>
+                    </div>
+                    <div class="progress h-5 mt-2">
+                        <div
+                            class="progress-bar"
+                            role="progressbar"
+                            style="width: 50%"
+                            aria-valuenow="50"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                        ></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6 col-xl-3">
+            <div class="card border-0 shadow-sm overflow-hidden mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-auto text-center">
+                            <i class="material-icons icons bg-danger md-36 icon-50">remove_from_queue</i>
+                        </div>
+                        <div class="col pl-0">
+                            <p class="mb-0">Total Loss</p>
+                            <h4 class="font-weight-light"><small>$</small> 15,410</h4>
+                        </div>
+                    </div>
+                    <div class="progress h-5 mt-2">
+                        <div
+                            class="progress-bar bg-danger"
+                            role="progressbar"
+                            style="width: 25%"
+                            aria-valuenow="25"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                        ></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6 col-xl-3">
+            <div class="card border-0 shadow-sm overflow-hidden mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-auto align-self-center">
+                            <div class="progress-summary">
+                                <p class="mb-0">
+                                    60%<br /><small><span class="d-block small text-template-primary">Global</span></small>
+                                </p>
+                                <div class="circle-progress">
+                                    <circle-progress
+                                        [percent]="76"
+                                        [radius]="26"
+                                        [outerStrokeWidth]="5"
+                                        [innerStrokeWidth]="0"
+                                        [outerStrokeColor]="'#1FC96E'"
+                                        [showTitle]="false"
+                                        [showSubtitle]="false"
+                                        [innerStrokeColor]="'transparent'"
+                                        [animation]="true"
+                                        [animationDuration]="300"
+                                    ></circle-progress>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col pl-0 ">
+                            <p class="mb-1">Awareness<span class="text-template-primary d-block small">Frequency</span></p>
+                            <h4 class="font-weight-light mb-0">76.98%</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6 col-xl-3">
+            <div class="card border-0 shadow-sm overflow-hidden mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col ">
+                            <p class="mb-0">Total Deals</p>
+                            <h4 class="font-weight-light">15410 <small>+15%</small></h4>
+                        </div>
+                        <div class="col-auto text-center pl-0">
+                            <i class="material-icons icons bg-warning md-36 icon-50">language</i>
+                        </div>
+                    </div>
+                    <div class="progress h-5 mt-2">
+                        <div
+                            class="progress-bar bg-warning"
+                            role="progressbar"
+                            style="width: 65%"
+                            aria-valuenow="65"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                        ></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header border-0 bg-none">
+                    <div class="row">
+                        <div class="col">
+                            <p class="fs15">User Session Overview<br /><small class="text-template-primary-light">Per Quarter</small></p>
+                        </div>
+                        <form class="form-inline search align-self-center">
+                            <input class="form-control form-control-sm" type="search" placeholder="Search" aria-label="Search" />
+                            <button class="btn btn-link btn-sm" type="submit"><i class="material-icons">search</i></button>
+                        </form>
+                        <div class="col-auto">
+                            <button class="btn btn-sm btn-outline-template"><i class="material-icons md-18 mr-2">print</i> Print</button>
+                            <button class="btn btn-sm btn-outline-template ml-2">
+                                <i class="material-icons md-18 mr-2">cloud_download</i> Export
+                            </button>
+                            <div class="dropdown d-inline-block  ml-2" ngbDropdown>
+                                <button
+                                    class="btn dropdown-toggle btn-sm btn-link active"
+                                    type="button"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false" ngbDropdownToggle
+                                >
+                                    <i class="material-icons">more_horiz</i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" ngbDropdownMenu>
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another</a>
+                                    <a class="dropdown-item" href="#">Something</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <br />
+                    <div class="areachart">
+                        <canvas baseChart [datasets]="mixedchartjsData" [labels]="mixedchartjsLabels" [options]="mixedchartjsOptions" [legend]="mixedchartjsLegend" [chartType]="mixedchartjsType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <i class="material-icons text-template-primary fs15 vm">album</i>
+                                </div>
+                                <div class="col pl-0">
+                                    <p>
+                                        IT User <small class="d-block"><span class="text-template-primary">25600</span></small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto border-left-dashed">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <i class="material-icons text-success fs15 vm">album</i>
+                                </div>
+                                <div class="col pl-0">
+                                    <p>
+                                        Non-IT <small class="d-block"><span class="text-template-primary">6548</span></small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto border-left-dashed">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <i class="material-icons text-danger fs15 vm">album</i>
+                                </div>
+                                <div class="col pl-0">
+                                    <p>
+                                        Trainee <small class="d-block"><span class="text-template-primary">15548</span></small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6 col-xl-4  mb-4">
+            <div class="card border-0 shadow-sm overflow-hidden h-100">
+                <div class="card-header border-0 bg-none">
+                    <div class="row">
+                        <div class="col">
+                            <p class="fs15">Page Views<br /><small class="text-template-primary-light">This week vs Last week</small></p>
+                        </div>
+                        <div class="col-auto">
+                            <div class="dropdown" ngbDropdown>
+                                <button class="btn dropdown-toggle btn-sm btn-link active" ngbDropdownToggle>
+                                    <i class="material-icons">more_horiz</i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" ngbDropdownMenu>
+                                    <a class="dropdown-item" href="javascript:void(0)">Action</a>
+                                    <a class="dropdown-item" href="javascript:void(0)">Another</a>
+                                    <a class="dropdown-item" href="javascript:void(0)">Something</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <ngb-tabset #t="ngbTabset" class="charttab">
+                        <ngb-tab class="show active" id="tabsone">
+                            <ng-template ngbTabContent>
+                                <div class="barcharts">
+                                    <canvas
+                                        baseChart
+                                        [datasets]="barchartsData"
+                                        [labels]="barchartsLabels"
+                                        [options]="barchartsOptions"
+                                        [legend]="barchartsLegend"
+                                        [chartType]="barchartsType"
+                                        (chartHover)="chartHovered($event)"
+                                        (chartClick)="chartClicked($event)"
+                                    ></canvas>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab class="tab-pane fade" id="tabstwo"><ng-template ngbTabContent>Tab 2</ng-template></ngb-tab>
+                        <ngb-tab class="tab-pane fade" id="tabsthree"><ng-template ngbTabContent>Tab 3</ng-template></ngb-tab>
+                    </ngb-tabset>
+                </div>
+                <div class="card-footer p-0 border-0 bg-none">
+                    <ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" (click)="t.select('tabsone')">
+                                <p class="mb-1">New User</p>
+                                <p class="text-template-primary-light">2540 <span class="badge badge-success vm">+21%</span></p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="t.select('tabstwo')">
+                                <p class="mb-1">Returning User</p>
+                                <p class="text-template-primary-light">1540 <span class="badge badge-danger vm">-21%</span></p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="t.select('tabsthree')">
+                                <p class="mb-1">Referral</p>
+                                <p class="text-template-primary-light">10 <span class="badge badge-danger vm">-21%</span></p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header border-0 bg-none">
+                    <div class="row">
+                        <div class="col align-self-center">
+                            <p class="fs15">Sales by Categories</p>
+                        </div>
+                        <div class="col-auto">
+                            <div class="dropdown" ngbDropdown>
+                                <button
+                                    class="btn dropdown-toggle btn-sm btn-link py-0 active"
+                                    type="button"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false"
+                                    ngbDropdownToggle
+                                >
+                                    <i class="material-icons">more_horiz</i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" ngbDropdownMenu>
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another</a>
+                                    <a class="dropdown-item" href="#">Something</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body pt-2">
+                    <div class="row">
+                        <div class="col-auto text-center align-self-center">
+                            <div class="donughtchart">
+                                <canvas baseChart [datasets]="donughtchartData" [labels]="donughtchartLabels" [options]="donughtchartOptions" [legend]="donughtchartLegend" [chartType]="donughtchartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row mb-1">
+                                <div class="col-auto">
+                                    <i class="material-icons text-template-primary fs15 vm">album</i>
+                                </div>
+                                <div class="col pl-0">
+                                    <p>
+                                        Referral Sale
+                                        <small class="d-block"
+                                            ><span class="text-template-primary">2548</span> <span class="text-danger">20%</span></small
+                                        >
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-auto">
+                                    <i class="material-icons text-success fs15 vm">album</i>
+                                </div>
+                                <div class="col pl-0">
+                                    <p>
+                                        Direct Sales
+                                        <small class="d-block"
+                                            ><span class="text-template-primary">2548</span> <span class="text-success">15%</span></small
+                                        >
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-auto">
+                                    <i class="material-icons text-danger fs15 vm">album</i>
+                                </div>
+                                <div class="col pl-0">
+                                    <p>
+                                        Offline Sales
+                                        <small class="d-block"
+                                            ><span class="text-template-primary">2548</span> <span class="text-success">18%</span></small
+                                        >
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header border-0 bg-none">
+                    <div class="row">
+                        <div class="col align-self-center">
+                            <p class="fs15">Bounce Rate</p>
+                        </div>
+                        <div class="col-auto">
+                            <div class="dropdown" ngbDropdown>
+                                <button
+                                    class="btn dropdown-toggle btn-sm btn-link py-0 active"
+                                    type="button"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false" ngbDropdownToggle
+                                >
+                                    <i class="material-icons">more_horiz</i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" ngbDropdownMenu>
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another</a>
+                                    <a class="dropdown-item" href="#">Something</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 text-center align-self-center">
+                            <div class="linechart-large">
+                                <canvas baseChart [datasets]="linechartlargeData" [labels]="linechartlargeLabels" [options]="linechartlargeOptions" [legend]="linechartlargeLegend" [chartType]="linechartlargeType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header border-0 bg-none">
+                    <div class="row">
+                        <div class="col">
+                            <p class="fs15">Internet Speed<br /><small class="text-template-primary-light">Speed Check Server 1</small></p>
+                        </div>
+                        <div class="col-auto">
+                            <div class="dropdown" ngbDropdown>
+                                <button
+                                    class="btn dropdown-toggle btn-sm btn-link active"
+                                    type="button"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false" ngbDropdownToggle
+                                >
+                                    <i class="material-icons">more_horiz</i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" ngbDropdownMenu>
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another</a>
+                                    <a class="dropdown-item" href="#">Something</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body pt-0">
+                    <div class="guagechart">
+                        <h3 class="mt-2">30.1<br /><small class="text-template-primary">mbps</small></h3>
+                        <rg-gauge-chart class="mx-auto" [canvasWidth]="canvasWidth" [needleValue]="needleValue" [centralLabel]="centralLabel" [options]="options"></rg-gauge-chart>                   
+                    </div>
+                    <h3 class="text-warning text-center mb-3">
+                        <i class="material-icons">star_outline</i>
+                        <i class="material-icons">star_outline</i>
+                        <i class="material-icons">star_outline</i>
+                    </h3>
+                    <div class="row">
+                        <div class="col-6 text-right">
+                            <p class="mb-1">Total Sales <i class="material-icons text-template-primary fs15 vm">album</i></p>
+                            <p class="text-template-primary-light">25600</p>
+                        </div>
+                        <div class="col-6 border-left-dashed">
+                            <p class="mb-1"><i class="material-icons text-template-primary-light fs15 vm">album</i> Referral Sales</p>
+                            <p class="text-template-primary-light">6500</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <div class="card border-0 shadow-sm overflow-hidden mb-4">
+                <div class="card-header border-0 bg-none">
+                    <div class="row">
+                        <div class="col-12 col-md">
+                            <p class="fs15">
+                                Assigned Tickets and Status<br /><small class="text-template-primary-light">This week vs Last week</small>
+                            </p>
+                        </div>
+                        <form class="form-inline search col-auto align-self-center px-0">
+                            <input class="form-control form-control-sm" type="search" placeholder="Search" aria-label="Search" />
+                            <button class="btn btn-link btn-sm" type="submit"><i class="material-icons">search</i></button>
+                        </form>
+                        <div class="col-auto align-self-center">
+                            <button class="btn btn-sm btn-outline-template ml-2">
+                                <i class="material-icons md-18">cloud_download</i> Export
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table datatable display responsive w-100">
+                        <thead>
+                            <tr>
+                                <th class="all">Order ID</th>
+                                <th class="min-tablet">Order From</th>
+                                <th class="min-desktop">Date</th>
+                                <th class="">Status</th>
+                                <th class="min-desktop">Order Receiver</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ID0001</td>
+                                <td>
+                                    <div class="media">
+                                        <figure class="mb-0 avatar avatar-40 mr-2">
+                                            <img src="assets/images/user3.png" alt="" />
+                                        </figure>
+                                        <div class="media-body">
+                                            <p class="mb-0 template-inverse">John Alexandar</p>
+                                            <p class="text-template-primary-light">Sydney, Australia</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>12-12-2019</td>
+                                <td>
+                                    <div class="btn-success btn btn-sm">Accepted</div>
+                                </td>
+                                <td>
+                                    <div class="media">
+                                        <figure class="mb-0 avatar avatar-40 mr-2">
+                                            <img src="assets/images/user1.png" alt="" />
+                                        </figure>
+                                        <div class="media-body">
+                                            <p class="mb-0 template-inverse">Sonya Wilson</p>
+                                            <p class="text-template-primary-light">Aquaguaard Manager</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="dropdown" ngbDropdown>
+                                        <button
+                                            class="btn dropdown-toggle btn-sm btn-link active"
+                                            type="button"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false" ngbDropdownToggle
+                                        >
+                                            <i class="material-icons">more_horiz</i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" ngbDropdownMenu>
+                                            <a class="dropdown-item" href="#">View</a>
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ID0002</td>
+                                <td>
+                                    <div class="media">
+                                        <figure class="mb-0 avatar avatar-40 mr-2">
+                                            A
+                                        </figure>
+                                        <div class="media-body">
+                                            <p class="mb-0 template-inverse">Anthony Desouza</p>
+                                            <p class="text-template-primary-light">Sydney, Australia</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>12-12-2019</td>
+                                <td>
+                                    <div class="btn-primary btn btn-sm">Accepted</div>
+                                </td>
+                                <td>
+                                    <div class="media">
+                                        <figure class="mb-0 avatar avatar-40 mr-2">
+                                            <img src="assets/images/user2.png" alt="" />
+                                        </figure>
+                                        <div class="media-body">
+                                            <p class="mb-0 template-inverse">Anjali Govind</p>
+                                            <p class="text-template-primary-light">Aquaguaard Manager</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="dropdown" ngbDropdown>
+                                        <button
+                                            class="btn dropdown-toggle btn-sm btn-link active"
+                                            type="button"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false" ngbDropdownToggle
+                                        >
+                                            <i class="material-icons">more_horiz</i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" ngbDropdownMenu>
+                                            <a class="dropdown-item" href="#">View</a>
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ID0003</td>
+                                <td>
+                                    <div class="media">
+                                        <figure class="mb-0 avatar avatar-40 mr-2">
+                                            M
+                                        </figure>
+                                        <div class="media-body">
+                                            <p class="mb-0 template-inverse">Mark Zukarburgs</p>
+                                            <p class="text-template-primary-light">Sydney, Australia</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>12-12-2019</td>
+                                <td>
+                                    <div class="btn-warning btn btn-sm">Accepted</div>
+                                </td>
+                                <td>
+                                    <div class="media">
+                                        <figure class="mb-0 avatar avatar-40 mr-2">
+                                            <img src="assets/images/user3.png" alt="" />
+                                        </figure>
+                                        <div class="media-body">
+                                            <p class="mb-0 template-inverse">Syam Prashad</p>
+                                            <p class="text-template-primary-light">Aquaguaard Manager</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="dropdown" ngbDropdown>
+                                        <button
+                                            class="btn dropdown-toggle btn-sm btn-link active"
+                                            type="button"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false" ngbDropdownToggle
+                                        >
+                                            <i class="material-icons">more_horiz</i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" ngbDropdownMenu>
+                                            <a class="dropdown-item" href="#">View</a>
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ID0004</td>
+                                <td>
+                                    <div class="media">
+                                        <figure class="mb-0 avatar avatar-40 mr-2">
+                                            <img src="assets/images/user3.png" alt="" />
+                                        </figure>
+                                        <div class="media-body">
+                                            <p class="mb-0 template-inverse">John Doe</p>
+                                            <p class="text-template-primary-light">Sydney, Australia</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>12-12-2019</td>
+                                <td>
+                                    <div class="btn-danger btn btn-sm">Accepted</div>
+                                </td>
+                                <td>
+                                    <div class="media">
+                                        <figure class="mb-0 avatar avatar-40 mr-2">
+                                            S
+                                        </figure>
+                                        <div class="media-body">
+                                            <p class="mb-0 template-inverse">Sonya Wilson</p>
+                                            <p class="text-template-primary-light">Aquaguaard Manager</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="dropdown" ngbDropdown>
+                                        <button
+                                            class="btn dropdown-toggle btn-sm btn-link active"
+                                            type="button"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false" ngbDropdownToggle
+                                        >
+                                            <i class="material-icons">more_horiz</i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" ngbDropdownMenu>
+                                            <a class="dropdown-item" href="#">View</a>
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ID0005</td>
+                                <td>
+                                    <div class="media">
+                                        <figure class="mb-0 avatar avatar-40 mr-2">
+                                            M
+                                        </figure>
+                                        <div class="media-body">
+                                            <p class="mb-0 template-inverse">Mark Zukarburgs</p>
+                                            <p class="text-template-primary-light">Sydney, Australia</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>12-12-2019</td>
+                                <td>
+                                    <div class="btn-success btn btn-sm">Accepted</div>
+                                </td>
+                                <td>
+                                    <div class="media">
+                                        <figure class="mb-0 avatar avatar-40 mr-2">
+                                            <img src="assets/images/user4.png" alt="" />
+                                        </figure>
+                                        <div class="media-body">
+                                            <p class="mb-0 template-inverse">Sonya Wilson</p>
+                                            <p class="text-template-primary-light">Aquaguaard Manager</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="dropdown" ngbDropdown>
+                                        <button
+                                            class="btn dropdown-toggle btn-sm btn-link active"
+                                            type="button"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false" ngbDropdownToggle
+                                        >
+                                            <i class="material-icons">more_horiz</i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" ngbDropdownMenu>
+                                            <a class="dropdown-item" href="#">View</a>
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-6 col-xl-4 ">
+            <div class="card border-0 shadow-sm overflow-hidden mb-4">
+                <div class="card-header border-0 bg-none">
+                    <div class="row">
+                        <div class="col">
+                            <p class="fs15">
+                                Activity Wall<br /><small class="text-template-primary-light">Most recent activities done</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body scroll-y h-400 p-0">
+                    <div class="list-group timeline-list roudned-0">
+                        <div class="list-group-item border-0">
+                            <div class="row">
+                                <div class="col mw-80 pr-0">
+                                    <p class="mb-0">11:20am</p>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="timeline-circle-wrap">
+                                        <div class="timeline-circle border-warning"><span class="bg-warning"></span></div>
+                                    </div>
+                                </div>
+                                <div class="col pl-0">
+                                    <p class="mb-0">We become world most valauble</p>
+                                    <p class="small text-mute">Thank you for all of your support and well wishes</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item border-0">
+                            <div class="row">
+                                <div class="col mw-80 pr-0">
+                                    <p class="mb-0">08:45am</p>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="timeline-circle-wrap">
+                                        <div class="timeline-circle border-danger"><span class="bg-danger"></span></div>
+                                    </div>
+                                </div>
+                                <div class="col pl-0">
+                                    <p class="mb-0">Team Closer</p>
+                                    <p class="small text-template-primary-light mb-1">Maxartkiller Team</p>
+                                </div>
+                                <div class="col pl-0 align-self-center">
+                                    <figure class="avatar avatar-20"><img src="assets/images/user1.png" alt="" /></figure>
+                                    <figure class="avatar avatar-20"><img src="assets/images/user2.png" alt="" /></figure>
+                                    <figure class="avatar avatar-20"><img src="assets/images/user3.png" alt="" /></figure>
+                                    <figure class="avatar avatar-20"><img src="assets/images/user4.png" alt="" /></figure>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item border-0">
+                            <div class="row">
+                                <div class="col mw-80 pr-0">
+                                    <p class="mb-0">09:10am</p>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="timeline-circle-wrap">
+                                        <div class="timeline-circle border-success"><span class="bg-success"></span></div>
+                                    </div>
+                                </div>
+                                <div class="col pl-0">
+                                    <p class="mb-0">Final Amendments are done</p>
+                                    <p class="small text-template-primary-light">Creative visual hierarchy completed</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item border-0">
+                            <div class="row">
+                                <div class="col mw-80 pr-0">
+                                    <p class="mb-0">10:15am</p>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="timeline-circle-wrap">
+                                        <div class="timeline-circle border-primary"><span class="bg-primary"></span></div>
+                                    </div>
+                                </div>
+                                <div class="col pl-0">
+                                    <p class="mb-0">Vision deployment done</p>
+                                    <p class="small text-template-primary-light">UX designer worked upon timline</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item border-0">
+                            <div class="row">
+                                <div class="col mw-80 pr-0">
+                                    <p class="mb-0">11:20am</p>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="timeline-circle-wrap">
+                                        <div class="timeline-circle border-primary"><span class="bg-primary"></span></div>
+                                    </div>
+                                </div>
+                                <div class="col pl-0">
+                                    <p class="mb-0">Vision deployment done</p>
+                                    <p class="small text-template-primary-light">UX designer worked upon timline</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item border-0">
+                            <div class="row">
+                                <div class="col mw-80 pr-0">
+                                    <p class="mb-0">11:45am</p>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="timeline-circle-wrap">
+                                        <div class="timeline-circle border-primary"><span class="bg-primary"></span></div>
+                                    </div>
+                                </div>
+                                <div class="col pl-0">
+                                    <p class="mb-0">Vision deployment done</p>
+                                    <p class="small text-template-primary-light">UX designer worked upon timline</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item border-0">
+                            <div class="row">
+                                <div class="col mw-80 pr-0">
+                                    <p class="mb-0">12:00am</p>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="timeline-circle-wrap">
+                                        <div class="timeline-circle border-info"><span class="bg-info"></span></div>
+                                    </div>
+                                </div>
+                                <div class="col pl-0">
+                                    <p class="mb-0">Critical Bug resolved</p>
+                                    <p class="small text-template-primary-light">Cleared list for bugs and development.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header border-0 bg-none">
+                    <div class="row">
+                        <div class="col align-self-center">
+                            <p class="fs15">
+                                Sales by Country<br /><small class="text-template-primary-light">Locate best popular country</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body pt-2">
+                    <div class="worldmap3" id="mapwrap"></div>
+                    <hr />
+                    <div class="row">
+                        <div class="col text-right">
+                            <div class="row mb-2">
+                                <div class="col pl-0">
+                                    <p>
+                                        Sydeny
+                                        <small class="d-block"
+                                            ><span class="text-template-primary">2548</span> <span class="text-danger">20%</span></small
+                                        >
+                                    </p>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="material-icons text-template-primary fs15 vm">album</i>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col pl-0">
+                                    <p>
+                                        WestIndies
+                                        <small class="d-block"
+                                            ><span class="text-template-primary">2548</span> <span class="text-success">15%</span></small
+                                        >
+                                    </p>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="material-icons text-template-primary fs15 vm">album</i>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col pl-0">
+                                    <p>
+                                        Newzealand
+                                        <small class="d-block"
+                                            ><span class="text-template-primary">2548</span> <span class="text-success">18%</span></small
+                                        >
+                                    </p>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="material-icons text-template-primary fs15 vm">album</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row mb-2">
+                                <div class="col-auto">
+                                    <i class="material-icons text-template-primary fs15 vm">album</i>
+                                </div>
+                                <div class="col pl-0">
+                                    <p>
+                                        Brazil
+                                        <small class="d-block"
+                                            ><span class="text-template-primary">2548</span> <span class="text-danger">20%</span></small
+                                        >
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-auto">
+                                    <i class="material-icons text-template-primary fs15 vm">album</i>
+                                </div>
+                                <div class="col pl-0">
+                                    <p>
+                                        India
+                                        <small class="d-block"
+                                            ><span class="text-template-primary">2548</span> <span class="text-success">15%</span></small
+                                        >
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-auto">
+                                    <i class="material-icons text-template-primary fs15 vm">album</i>
+                                </div>
+                                <div class="col pl-0">
+                                    <p>
+                                        England
+                                        <small class="d-block"
+                                            ><span class="text-template-primary">2548</span> <span class="text-success">18%</span></small
+                                        >
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header border-0 bg-none">
+                    <div class="row">
+                        <div class="col align-self-center">
+                            <p class="fs15">
+                                New Users<br /><small class="text-template-primary-light">Most recent new registrations</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-6 mb-4 text-center">
+                            <figure class="avatar avatar-110 mb-3">
+                                <button class="btn btn-sm text-danger user-like"><i class="material-icons md-18">favorite</i></button>
+                                <img src="assets/images/user2.png" alt="" />
+                            </figure>
+                            <p class="mb-1">Anjali Govind</p>
+                            <p class="text-template-primary-light">Team Lead</p>
+                        </div>
+                        <div class="col-6 mb-4 text-center">
+                            <figure class="avatar avatar-110 mb-3">
+                                <button class="btn btn-sm text-danger user-like"><i class="material-icons md-18">favorite</i></button>
+                                <img src="assets/images/user3.png" alt="" />
+                            </figure>
+                            <p class="mb-1">Sonya Wilson</p>
+                            <p class="text-template-primary-light">Marketing Lead</p>
+                        </div>
+                        <div class="col-6 text-center">
+                            <figure class="avatar avatar-110 mb-3">
+                                <button class="btn btn-sm text-danger user-like"><i class="material-icons md-18">favorite</i></button>
+                                <img src="assets/images/user4.png" alt="" />
+                            </figure>
+                            <p class="mb-1">Syam Prashad</p>
+                            <p class="text-template-primary-light">Production Manager</p>
+                        </div>
+                        <div class="col-6 text-center">
+                            <figure class="avatar avatar-110 mb-3">
+                                <button class="btn btn-sm text-danger user-like"><i class="material-icons md-18">favorite</i></button>
+                                <img src="assets/images/user5.png" alt="" />
+                            </figure>
+                            <p class="mb-1">John Doe</p>
+                            <p class="text-template-primary-light">CEO, Aquaagaurd</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
