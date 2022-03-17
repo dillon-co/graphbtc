@@ -1,8 +1,13 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
-import { lnsocket_init } from '../../../lnsocket';
 
-const compiled = new WebAssembly.Module(fs.readFileSync(__dirname + "/lnsocket_module.wasm"));
+// import * as Module from '../../../lnsocket';
+// import * as lnsocket_init from '../../../assets/lnsocket';
+
+// import { lnsocket_init } from '../../../lnsocket';
+import { Observable, BehaviorSubject, of } from 'rxjs';
+import { filter, map, tap, flatMap } from 'rxjs/operators';
+
 
 declare var $: any;
 
@@ -13,264 +18,271 @@ declare var $: any;
     animations: [routerTransition()]
 })
 export class DashboardComponent implements OnInit {
-    constructor() {
-        this.sliders.push(
-            {
-                imagePath: 'assets/images/intro-1.jpg',
-                label: 'First slide label',
-                text: 'Nulla vitae elit libero, a pharetra augue mollis interdum.'
-            },
-            {
-                imagePath: 'assets/images/intro-2.jpg',
-                label: 'Second slide label',
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-            },
-            {
-                imagePath: 'assets/images/intro-3.jpg',
-                label: 'Third slide label',
-                text: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.'
-            }
-        );
+    wasmReady = new BehaviorSubject<boolean>(false)
+    module: any
 
-        this.alerts.push(
-            {
-                id: 1,
-                type: 'success',
-                message: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptates est animi quibusdam praesentium quam, et perspiciatis,
-                consectetur velit culpa molestias dignissimos
-                voluptatum veritatis quod aliquam! Rerum placeat necessitatibus, vitae dolorum`
-            },
-            {
-                id: 2,
-                type: 'warning',
-                message: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptates est animi quibusdam praesentium quam, et perspiciatis,
-                consectetur velit culpa molestias dignissimos
-                voluptatum veritatis quod aliquam! Rerum placeat necessitatibus, vitae dolorum`
-            }
-        );
+    constructor() {
         this.mixedChartEtl();
         this.lineChartEtl();
         this.donughtChartEtl();
         this.mixedLineChartEtl();
     }
 
-    public balances: Array<any> = [
-      {
-        'account': 'wallet',
-        'balances': [{'balance': '9981515000msat', 'coin_type': 'bcrt'}]
-      }, {
-        'account': 'a5b23dff5177badd6df725cefeb83ceccbfc52dc64a16b38894a41f0ad8fa181',
-        'balances': [{'balance': '12981515000msat', 'coin_type': 'bcrt'}]
-      }, {
-        'account': '27a4a4dd880e861e390517de3e786a237c5ad1f00faab277382664e76b5c3870',
-        'balances': [{'balance': '19981515000msat', 'coin_type': 'bcrt'}]
-      }
-    ]
-    public invoices:Array<any> = [
-      {
-      'label': '1',
-      'bolt11': 'lnbcrt100n1p3z6ywzpp5545vx6adm7jdjk6eahfvjmaw0yuts05qcnjluujg6972av0kxmtsdq8deh47vgxqyjw5qcqp9sp5hlc5srkkuf20wv0q536faap05d90v37s5c4lxeztjxru4mzp6mks9qxsqyssq32kp2dyvcvvvteekqya4ycd5kp9pszx56044qsvwq9pm2q7pj0vrwhvseng8funma294u3nr74pzgn5jqqvjp73r8pqrkph45j4m3ucqcvsuzv',
-      'payment_hash': 'a568c36baddfa4d95b59edd2c96fae7938b83e80c4e5fe7248d17caeb1f636d7',
-      'msatoshi': 1138191000,
-      'amount_msat': '10000msat',
-      'status': 'paid',
-      'pay_index': 1,
-      'msatoshi_received': 1138191000,
-      'amount_received_msat': '10000msat',
-      'paid_at': 1647120835,
-      'payment_preimage': 'c70178f722ac40a86d0142bdfeea984fac97fffcb11137995f3a7cb76db255ef',
-      'description': 'no_1',
-      'expires_at': 1647725634
-    }, {
-      'label': '3',
-      'bolt11': 'lnbcrt100n1p3z6ywrpp5f4f87n2al6z42wq26m9qh6f527d7sd695vpnsm3uf2agxxcngvysdq8deh47vcxqyjw5qcqp9sp5fnp04ejl5jktrjvtm5xxcejq4awv2u39ghsnmhtrtswf3t04pgpq9qxsqyssqu6e7nuq29cr4phn7nwlyrj4jmug7xgykcs78pm56npa60nkykvz8xvuk27dj6kyfx5deeh6apcntts7fy3s5edp73fclphzwla74x7gqh6xl4d',
-      'payment_hash': '4d527f4d5dfe8555380ad6ca0be934579be83745a303386e3c4aba831b134309',
-      'msatoshi': 1110020000,
-      'amount_msat': '10000msat',
-      'status': 'paid',
-      'pay_index': 2,
-      'msatoshi_received': 111002000,
-      'amount_received_msat': '10000msat',
-      'paid_at': 1647120836,
-      'payment_preimage': '9de956f89a7a7c414e20791e544c29d9b3009c8b334c03e2d7e9ecc9d73cd5de',
-      'description': 'no_3',
-      'expires_at': 1647725635
-    }, {
-      'label': '3',
-      'bolt11': 'lnbcrt100n1p3z6ywrpp5f4f87n2al6z42wq26m9qh6f527d7sd695vpnsm3uf2agxxcngvysdq8deh47vcxqyjw5qcqp9sp5fnp04ejl5jktrjvtm5xxcejq4awv2u39ghsnmhtrtswf3t04pgpq9qxsqyssqu6e7nuq29cr4phn7nwlyrj4jmug7xgykcs78pm56npa60nkykvz8xvuk27dj6kyfx5deeh6apcntts7fy3s5edp73fclphzwla74x7gqh6xl4d',
-      'payment_hash': '4d527f4d5dfe8555380ad6ca0be934579be83745a303386e3c4aba831b134309',
-      'msatoshi': 1230010000,
-      'amount_msat': '10000msat',
-      'status': 'paid',
-      'pay_index': 2,
-      'msatoshi_received': 1230010000,
-      'amount_received_msat': '10000msat',
-      'paid_at': 1647120837,
-      'payment_preimage': '9de956f89a7a7c414e20791e544c29d9b3009c8b334c03e2d7e9ecc9d73cd5de',
-      'description': 'no_3',
-      'expires_at': 1647725635
-    }, {
-      'label': '3',
-      'bolt11': 'lnbcrt100n1p3z6ywrpp5f4f87n2al6z42wq26m9qh6f527d7sd695vpnsm3uf2agxxcngvysdq8deh47vcxqyjw5qcqp9sp5fnp04ejl5jktrjvtm5xxcejq4awv2u39ghsnmhtrtswf3t04pgpq9qxsqyssqu6e7nuq29cr4phn7nwlyrj4jmug7xgykcs78pm56npa60nkykvz8xvuk27dj6kyfx5deeh6apcntts7fy3s5edp73fclphzwla74x7gqh6xl4d',
-      'payment_hash': '4d527f4d5dfe8555380ad6ca0be934579be83745a303386e3c4aba831b134309',
-      'msatoshi': 1142001000,
-      'amount_msat': '10000msat',
-      'status': 'paid',
-      'pay_index': 2,
-      'msatoshi_received': 1142001000,
-      'amount_received_msat': '10000msat',
-      'paid_at': 1647120838,
-      'payment_preimage': '9de956f89a7a7c414e20791e544c29d9b3009c8b334c03e2d7e9ecc9d73cd5de',
-      'description': 'no_3',
-      'expires_at': 1647725635
-      }
-    ]
-    public incomeEvents: Array<any> = [
-        {
-          'account': 'a5b23dff5177badd6df725cefeb83ceccbfc52dc64a16b38894a41f0ad8fa181',
-          'tag': 'onchain_fee',
-          'credit': 0,
-          'debit': 980000,
-          'currency': 'bcrt',
-          'timestamp': 1647120683,
-          'txid': '90a11b87bcf865ae3f7d0c94d44a05072dcd32f27fc9ab01dfc6e144a7e61e26'
-        }, {
-          'account': '27a4a4dd880e861e390517de3e786a237c5ad1f00faab277382664e76b5c3870',
-          'tag': 'onchain_fee',
-          'credit': 0,
-          'debit': 13024000,
-          'currency': 'bcrt',
-          'timestamp': 1647120675,
-          'txid': '5b78b9b8c84385182533c4b3004d6dbe9bb86a4af2d8ce01674d1fb36383d135'
-        }, {
-          'account': 'wallet',
-          'tag': 'onchain_fee',
-          'credit': 0,
-          'debit': 3277000,
-          'currency': 'bcrt',
-          'timestamp': 1647120678,
-          'txid': '2685b28db8196821933961dea5dae0b608ba46e81c4b5202f12ec94df57a473e'
-        }, {
-          'account': '27a4a4dd880e861e390517de3e786a237c5ad1f00faab277382664e76b5c3870',
-          'tag': 'onchain_fee',
-          'credit': 0,
-          'debit': 1224000,
-          'currency': 'bcrt',
-          'timestamp': 1647120680,
-          'txid': '203f8599381a9ea6371c1bbd914c55aedb067844b4b432e2ea9bd6a5d6da91f4'
-        }, {
-          'account': 'wallet',
-          'tag': 'deposit',
-          'credit': 20000000,
-          'debit': 0,
-          'currency': 'bcrt',
-          'timestamp': 1647120683,
-          'outpoint': 'f9717f0809d842619c11e2f85a398df778186db2c94c78c73b2490a90cc0a23f:0'
-        }, {
-          'account': 'a5b23dff5177badd6df725cefeb83ceccbfc52dc64a16b38894a41f0ad8fa181',
-          'tag': 'lease_fee',
-          'credit': 6432000,
-          'debit': 0,
-          'currency': 'bcrt',
-          'timestamp': 1647120684
-        }, {
-          'account': '27a4a4dd880e861e390517de3e786a237c5ad1f00faab277382664e76b5c3870',
-          'tag': 'lease_fee',
-          'credit': 0,
-          'debit': 6432000,
-          'currency': 'bcrt',
-          'timestamp': 1647120685
-        }, {
-          'account': 'a5b23dff5177badd6df725cefeb83ceccbfc52dc64a16b38894a41f0ad8fa181',
-          'tag': 'invoice',
-          'credit': 1000000,
-          'debit': 0,
-          'currency': 'bcrt',
-          'timestamp': 1647120688,
-          'payment_id': '0b08781f3ffec55a1cf11ff950805359dce03af94de3b543ff82e9d3d97a4f32'
-        }, {
-          'account': '27a4a4dd880e861e390517de3e786a237c5ad1f00faab277382664e76b5c3870',
-          'tag': 'invoice',
-          'credit': 1000000,
-          'debit': 0,
-          'currency': 'bcrt',
-          'timestamp': 1647120689,
-          'payment_id': 'e082b925ba5b872a0376a32ac3bfc539ecab12e9f3dd8b20e5c49710300cca2e'
-        }, {
-          'account': 'wallet',
-          'tag': 'journal_entry',
-          'credit': 0,
-          'debit': 660000,
-          'currency': 'bcrt',
-          'timestamp': 1647120695
-        }
-      ]
-    public pays: Array<any> = [{
-         'bolt11': 'lnbcrt100n1p3z6ywzpp5545vx6adm7jdjk6eahfvjmaw0yuts05qcnjluujg6972av0kxmtsdq8deh47vgxqyjw5qcqp9sp5hlc5srkkuf20wv0q536faap05d90v37s5c4lxeztjxru4mzp6mks9qxsqyssq32kp2dyvcvvvteekqya4ycd5kp9pszx56044qsvwq9pm2q7pj0vrwhvseng8funma294u3nr74pzgn5jqqvjp73r8pqrkph45j4m3ucqcvsuzv',
-         'destination': '022d223620a359a47ff7f7ac447c85c46c923da53389221a0054c11c1e3ca31d59',
-         'payment_hash': 'a568c36baddfa4d95b59edd2c96fae7938b83e80c4e5fe7248d17caeb1f636d7',
-         'status': 'complete',
-         'created_at': 1647120834,
-         'preimage': 'c70178f722ac40a86d0142bdfeea984fac97fffcb11137995f3a7cb76db255ef',
-         'amount_msat': 10000,
-         'amount_sent_msat': 10000
-       }]
+    public async getNodeInfo(rune: string): Promise<any> {
+      /* Connect to the lightning node */
+      const LNSocket = await lnsocket_init()
+
+      const ln = LNSocket();
+
+      ln.genkey();
+
+      await ln.connect_and_init("02cca6c5c966fcf61d121e3a70e03a1cd9eeeea024b26ea666ce974d43b242e636", "104.131.77.55:9999")
+
+      var b = await ln.rpc({ method: "listbalances", rune });
+      this.balances = b['accounts'];
+
+      var i = await ln.rpc({ method: "listinvoices", rune });
+      this.invoices = i['invoices'];
+
+      var ie = await ln.rpc({ method: "listincome", rune });
+      this.incomeEvents = ie['income_events'];
+
+      var p = await ln.rpc({ method: "listpays", rune });
+      this.pays = await p['pays'];
+
+      this.showData = true
+      console.log(ie)
+    }
+
+    public showData: Boolean = false
+
+    public balances: Array<any> = []
+    public invoices:Array<any> = []
+    public incomeEvents: Array<any> = []
+    public pays: Array<any> = []
+
+    // public balances: Array<any> = [
+    //   {
+    //     'account': 'wallet',
+    //     'balances': [{'balance': '9981515000msat', 'coin_type': 'bcrt'}]
+    //   }, {
+    //     'account': 'a5b23dff5177badd6df725cefeb83ceccbfc52dc64a16b38894a41f0ad8fa181',
+    //     'balances': [{'balance': '12981515000msat', 'coin_type': 'bcrt'}]
+    //   }, {
+    //     'account': '27a4a4dd880e861e390517de3e786a237c5ad1f00faab277382664e76b5c3870',
+    //     'balances': [{'balance': '19981515000msat', 'coin_type': 'bcrt'}]
+    //   }
+    // ]
+    // public invoices:Array<any> = [
+    //   {
+    //     'label': '1',
+    //     'bolt11': 'lnbcrt100n1p3z6ywzpp5545vx6adm7jdjk6eahfvjmaw0yuts05qcnjluujg6972av0kxmtsdq8deh47vgxqyjw5qcqp9sp5hlc5srkkuf20wv0q536faap05d90v37s5c4lxeztjxru4mzp6mks9qxsqyssq32kp2dyvcvvvteekqya4ycd5kp9pszx56044qsvwq9pm2q7pj0vrwhvseng8funma294u3nr74pzgn5jqqvjp73r8pqrkph45j4m3ucqcvsuzv',
+    //     'payment_hash': 'a568c36baddfa4d95b59edd2c96fae7938b83e80c4e5fe7248d17caeb1f636d7',
+    //     'msatoshi': 1138191000,
+    //     'amount_msat': '10000msat',
+    //     'status': 'paid',
+    //     'pay_index': 1,
+    //     'msatoshi_received': 1138191000,
+    //     'amount_received_msat': '10000msat',
+    //     'paid_at': 1647120835,
+    //     'payment_preimage': 'c70178f722ac40a86d0142bdfeea984fac97fffcb11137995f3a7cb76db255ef',
+    //     'description': 'no_1',
+    //     'expires_at': 1647725634
+    //   }, {
+    //     'label': '3',
+    //     'bolt11': 'lnbcrt100n1p3z6ywrpp5f4f87n2al6z42wq26m9qh6f527d7sd695vpnsm3uf2agxxcngvysdq8deh47vcxqyjw5qcqp9sp5fnp04ejl5jktrjvtm5xxcejq4awv2u39ghsnmhtrtswf3t04pgpq9qxsqyssqu6e7nuq29cr4phn7nwlyrj4jmug7xgykcs78pm56npa60nkykvz8xvuk27dj6kyfx5deeh6apcntts7fy3s5edp73fclphzwla74x7gqh6xl4d',
+    //     'payment_hash': '4d527f4d5dfe8555380ad6ca0be934579be83745a303386e3c4aba831b134309',
+    //     'msatoshi': 1110020000,
+    //     'amount_msat': '10000msat',
+    //     'status': 'paid',
+    //     'pay_index': 2,
+    //     'msatoshi_received': 111002000,
+    //     'amount_received_msat': '10000msat',
+    //     'paid_at': 1647120836,
+    //     'payment_preimage': '9de956f89a7a7c414e20791e544c29d9b3009c8b334c03e2d7e9ecc9d73cd5de',
+    //     'description': 'no_3',
+    //     'expires_at': 1647725635
+    //   }, {
+    //     'label': '3',
+    //     'bolt11': 'lnbcrt100n1p3z6ywrpp5f4f87n2al6z42wq26m9qh6f527d7sd695vpnsm3uf2agxxcngvysdq8deh47vcxqyjw5qcqp9sp5fnp04ejl5jktrjvtm5xxcejq4awv2u39ghsnmhtrtswf3t04pgpq9qxsqyssqu6e7nuq29cr4phn7nwlyrj4jmug7xgykcs78pm56npa60nkykvz8xvuk27dj6kyfx5deeh6apcntts7fy3s5edp73fclphzwla74x7gqh6xl4d',
+    //     'payment_hash': '4d527f4d5dfe8555380ad6ca0be934579be83745a303386e3c4aba831b134309',
+    //     'msatoshi': 1230010000,
+    //     'amount_msat': '10000msat',
+    //     'status': 'paid',
+    //     'pay_index': 2,
+    //     'msatoshi_received': 1230010000,
+    //     'amount_received_msat': '10000msat',
+    //     'paid_at': 1647120837,
+    //     'payment_preimage': '9de956f89a7a7c414e20791e544c29d9b3009c8b334c03e2d7e9ecc9d73cd5de',
+    //     'description': 'no_3',
+    //     'expires_at': 1647725635
+    //   }, {
+    //     'label': '3',
+    //     'bolt11': 'lnbcrt100n1p3z6ywrpp5f4f87n2al6z42wq26m9qh6f527d7sd695vpnsm3uf2agxxcngvysdq8deh47vcxqyjw5qcqp9sp5fnp04ejl5jktrjvtm5xxcejq4awv2u39ghsnmhtrtswf3t04pgpq9qxsqyssqu6e7nuq29cr4phn7nwlyrj4jmug7xgykcs78pm56npa60nkykvz8xvuk27dj6kyfx5deeh6apcntts7fy3s5edp73fclphzwla74x7gqh6xl4d',
+    //     'payment_hash': '4d527f4d5dfe8555380ad6ca0be934579be83745a303386e3c4aba831b134309',
+    //     'msatoshi': 1142001000,
+    //     'amount_msat': '10000msat',
+    //     'status': 'paid',
+    //     'pay_index': 2,
+    //     'msatoshi_received': 1142001000,
+    //     'amount_received_msat': '10000msat',
+    //     'paid_at': 1647120838,
+    //     'payment_preimage': '9de956f89a7a7c414e20791e544c29d9b3009c8b334c03e2d7e9ecc9d73cd5de',
+    //     'description': 'no_3',
+    //     'expires_at': 1647725635
+    //   }
+    // ]
+    // public incomeEvents: Array<any> = [
+    //   {
+    //     'account': 'a5b23dff5177badd6df725cefeb83ceccbfc52dc64a16b38894a41f0ad8fa181',
+    //     'tag': 'onchain_fee',
+    //     'credit': 0,
+    //     'debit': 980000,
+    //     'currency': 'bcrt',
+    //     'timestamp': 1647120683,
+    //     'txid': '90a11b87bcf865ae3f7d0c94d44a05072dcd32f27fc9ab01dfc6e144a7e61e26'
+    //   }, {
+    //     'account': '27a4a4dd880e861e390517de3e786a237c5ad1f00faab277382664e76b5c3870',
+    //     'tag': 'onchain_fee',
+    //     'credit': 0,
+    //     'debit': 13024000,
+    //     'currency': 'bcrt',
+    //     'timestamp': 1647120675,
+    //     'txid': '5b78b9b8c84385182533c4b3004d6dbe9bb86a4af2d8ce01674d1fb36383d135'
+    //   }, {
+    //     'account': 'wallet',
+    //     'tag': 'onchain_fee',
+    //     'credit': 0,
+    //     'debit': 3277000,
+    //     'currency': 'bcrt',
+    //     'timestamp': 1647120678,
+    //     'txid': '2685b28db8196821933961dea5dae0b608ba46e81c4b5202f12ec94df57a473e'
+    //   }, {
+    //     'account': '27a4a4dd880e861e390517de3e786a237c5ad1f00faab277382664e76b5c3870',
+    //     'tag': 'onchain_fee',
+    //     'credit': 0,
+    //     'debit': 1224000,
+    //     'currency': 'bcrt',
+    //     'timestamp': 1647120680,
+    //     'txid': '203f8599381a9ea6371c1bbd914c55aedb067844b4b432e2ea9bd6a5d6da91f4'
+    //   }, {
+    //     'account': 'wallet',
+    //     'tag': 'deposit',
+    //     'credit': 20000000,
+    //     'debit': 0,
+    //     'currency': 'bcrt',
+    //     'timestamp': 1647120683,
+    //     'outpoint': 'f9717f0809d842619c11e2f85a398df778186db2c94c78c73b2490a90cc0a23f:0'
+    //   }, {
+    //     'account': 'a5b23dff5177badd6df725cefeb83ceccbfc52dc64a16b38894a41f0ad8fa181',
+    //     'tag': 'lease_fee',
+    //     'credit': 6432000,
+    //     'debit': 0,
+    //     'currency': 'bcrt',
+    //     'timestamp': 1647120684
+    //   }, {
+    //     'account': '27a4a4dd880e861e390517de3e786a237c5ad1f00faab277382664e76b5c3870',
+    //     'tag': 'lease_fee',
+    //     'credit': 0,
+    //     'debit': 6432000,
+    //     'currency': 'bcrt',
+    //     'timestamp': 1647120685
+    //   }, {
+    //     'account': 'a5b23dff5177badd6df725cefeb83ceccbfc52dc64a16b38894a41f0ad8fa181',
+    //     'tag': 'invoice',
+    //     'credit': 1000000,
+    //     'debit': 0,
+    //     'currency': 'bcrt',
+    //     'timestamp': 1647120688,
+    //     'payment_id': '0b08781f3ffec55a1cf11ff950805359dce03af94de3b543ff82e9d3d97a4f32'
+    //   }, {
+    //     'account': '27a4a4dd880e861e390517de3e786a237c5ad1f00faab277382664e76b5c3870',
+    //     'tag': 'invoice',
+    //     'credit': 1000000,
+    //     'debit': 0,
+    //     'currency': 'bcrt',
+    //     'timestamp': 1647120689,
+    //     'payment_id': 'e082b925ba5b872a0376a32ac3bfc539ecab12e9f3dd8b20e5c49710300cca2e'
+    //   }, {
+    //     'account': 'wallet',
+    //     'tag': 'journal_entry',
+    //     'credit': 0,
+    //     'debit': 660000,
+    //     'currency': 'bcrt',
+    //     'timestamp': 1647120695
+    //   }
+    // ]
+    // public pays: Array<any> = [{
+    //   'bolt11': 'lnbcrt100n1p3z6ywzpp5545vx6adm7jdjk6eahfvjmaw0yuts05qcnjluujg6972av0kxmtsdq8deh47vgxqyjw5qcqp9sp5hlc5srkkuf20wv0q536faap05d90v37s5c4lxeztjxru4mzp6mks9qxsqyssq32kp2dyvcvvvteekqya4ycd5kp9pszx56044qsvwq9pm2q7pj0vrwhvseng8funma294u3nr74pzgn5jqqvjp73r8pqrkph45j4m3ucqcvsuzv',
+    //   'destination': '022d223620a359a47ff7f7ac447c85c46c923da53389221a0054c11c1e3ca31d59',
+    //   'payment_hash': 'a568c36baddfa4d95b59edd2c96fae7938b83e80c4e5fe7248d17caeb1f636d7',
+    //   'status': 'complete',
+    //   'created_at': 1647120834,
+    //   'preimage': 'c70178f722ac40a86d0142bdfeea984fac97fffcb11137995f3a7cb76db255ef',
+    //   'amount_msat': 10000,
+    //   'amount_sent_msat': 10000
+    // }]
     public incomeTags: Array<string> = [
-                        "deposit",
-                      	"withdrawal",
-                      	"penalty",
-                      	"invoice",
-                      	"routed",
-                      	"pushed",
-                      	"channel_open",
-                      	"channel_close",
-                      	"delayed_to_us",
-                      	"htlc_timeout",
-                      	"htlc_fulfill",
-                      	"htlc_tx",
-                      	"to_wallet",
-                      	"ignored",
-                      	"anchor",
-                      	"to_them",
-                      	"penalized",
-                      	"stolen",
-                      	"to_miner",
-                      	"lease_fee",
-                      	"journal_entry",
-                      	"penalty_adj",
-                      	"invoice_fee"
+      "deposit",
+      "withdrawal",
+      "penalty",
+      "invoice",
+      "routed",
+      "pushed",
+      "channel_open",
+      "channel_close",
+      "delayed_to_us",
+      "htlc_timeout",
+      "htlc_fulfill",
+      "htlc_tx",
+      "to_wallet",
+      "ignored",
+      "anchor",
+      "to_them",
+      "penalized",
+      "stolen",
+      "to_miner",
+      "lease_fee",
+      "journal_entry",
+      "penalty_adj",
+      "invoice_fee"
     ]
 
-    public totalDebit: Int = 0
-    public totalCredit: Int = 0
+    public runShowData(e) {
+      e.preventDefault();
+      const node = this.getNodeInfo("NZG2PwTxSltQt3JMtlbwz1dxOdNnnssWH5Sztk6pKdM9MTEmbWV0aG9kXmxpc3R8bWV0aG9kXmdldHxtZXRob2Q9c3VtbWFyeSZtZXRob2QvZ2V0c2hhcmVkc2VjcmV0Jm1ldGhvZC9saXN0ZGF0YXN0b3Jl")
+      // this.showData = true;
+    }
 
-    public sumNums(chartData: Int[]): Int {
+
+    public totalDebit: any = 0
+    public totalCredit: any = 0
+
+    public sumNums(chartData: any[]): any {
       var s = chartData.reduce((sum, current) => sum + current, 0)
       return s
     }
     // 1 BTC == 10,000,000 sats; 1sat == 1000 msats
 
-    public totalEvents: Int = this.incomeEvents.length;
-    public incomeTotal: Int = this.getIncomeTotal();
-    public paysTotal: Int = this.getPaysTotal();
+    public totalEvents: any = this.incomeEvents.length;
+    public incomeTotal: any = this.getIncomeTotal();
+    public paysTotal: any = this.getPaysTotal();
 
 
-    public getIncomeTotal(): Int {
-      var incomeTotal: Int = 0
+    public getIncomeTotal(): any {
+      var incomeTotal: any = 0
       for (var i in this.incomeEvents) {
         var ie = this.incomeEvents[i]
-        var debit: Int = ie['debit'];
-        var credit: Int = ie['credit'];
+        var debit: any = ie['debit'];
+        var credit: any = ie['credit'];
         incomeTotal += credit;
         incomeTotal -= debit;
       }
       return incomeTotal/1000;
     }
 
-    public getPaysTotal(): Int {
-      var paysTotal: Int = 0;
+    public getPaysTotal(): any {
+      var paysTotal: any = 0;
       for (var i in this.pays) {
         var p = this.pays[i]
         paysTotal += p['amount_sent_msat']
@@ -390,7 +402,7 @@ export class DashboardComponent implements OnInit {
     public summaryChart1Labels: string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
     public summaryChart1Type: string;
     public summaryChart1Legend: boolean;
-    public LNSocket 
+    public LNSocket
 
     public summaryChart1Data: any[] = [
         {
@@ -520,7 +532,7 @@ export class DashboardComponent implements OnInit {
         }
     };
     public mixedchartjsLabels: string[] = [];
-    // public mixedchartjsLabels: string[] = ['0', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8'];
+
     public mixedchartjsType: string;
     public mixedchartjsLegend: boolean;
 
@@ -612,7 +624,7 @@ export class DashboardComponent implements OnInit {
       }
     };
     public mixedlinechartjsLabels: string[] = [];
-    // public mixedlinechartjsLabels: string[] = ['0', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8'];
+
     public mixedlinechartjsType: string;
     public mixedlinechartjsLegend: boolean;
 
@@ -652,15 +664,6 @@ export class DashboardComponent implements OnInit {
       }
     }
 
-    // public lineChartEtl() {
-    //   for (var i in this.invoices) {
-    //     var amount = this.invoices[i]['msatoshi_received'] / 1000;
-    //     var t = this.invoices[i]['paid_at'];
-    //     this.linechartlargeData[0]['data'].push(amount);
-    //     this.linechartlargeLabels.push(t);
-    //   }
-    // }
-
     public lineChartEtl() {
       for (var i in this.invoices) {
         var amount = this.invoices[i]['msatoshi_received'] / 1000;
@@ -669,40 +672,6 @@ export class DashboardComponent implements OnInit {
         this.linechartlargeLabels.push(t);
       }
     }
-
-    // donughtchart chart
-    // public donughtchartOptions: any = {
-    //     elements: {
-    //         arc: {
-    //             borderWidth: 0
-    //         }
-    //     },
-    //     cutoutPercentage: 70,
-    //     responsive: true,
-    //     aspectRatio: '1',
-    //     legend: {
-    //         display: false
-    //     },
-    //     title: {
-    //         display: false,
-    //         text: 'Chart.js Doughnut Chart'
-    //     },
-    //     animation: {
-    //         animateScale: true,
-    //         animateRotate: true
-    //     }
-    // };
-    // public donughtchartLabels: string[] = ['Red', 'Orange', 'Yellow', 'Green', 'Blue'];
-    // public donughtchartType: string;
-    // public donughtchartLegend: boolean;
-    //
-    // public donughtchartData: any[] = [
-    //     {
-    //         data: [30, 20, 35, 15],
-    //         backgroundColor: ['rgba(240, 240, 240, 0.5)', '#5B92FF', '#1FC96E', '#F85778'],
-    //         label: 'Dataset 1'
-    //     }
-    // ];
 
     // linechartlarge chart
     public linechartlargeOptions: any = {
@@ -861,16 +830,6 @@ export class DashboardComponent implements OnInit {
         this.barchartsType = 'bar';
 
 	/* Connect to the lightning node */
-	const LNSocket = await lnsocket_init();
-	this.ln = LNSocket();
-
-	ln.genkey()
-	await ln.connect_and_init("02cca6c5c966fcf61d121e3a70e03a1cd9eeeea024b26ea666ce974d43b242e636", "104.131.77.55:9999")
-
-	const rune = "NZG2PwTxSltQt3JMtlbwz1dxOdNnnssWH5Sztk6pKdM9MTEmbWV0aG9kXmxpc3R8bWV0aG9kXmdldHxtZXRob2Q9c3VtbWFyeSZtZXRob2QvZ2V0c2hhcmVkc2VjcmV0Jm1ldGhvZC9saXN0ZGF0YXN0b3Jl"
-
-	const res = await ln.rpc({ method: "getinfo", rune })
-	document.body.innerHTML = `<pre>${JSON.stringify(res.result, undefined, 2)}</pre>`
 
         $('#mapwrap').vectorMap({
             map: 'world_mill'
@@ -882,4 +841,5 @@ export class DashboardComponent implements OnInit {
         const index: number = this.alerts.indexOf(alert);
         this.alerts.splice(index, 1);
     }
+
 }

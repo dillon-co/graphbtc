@@ -1,26 +1,26 @@
 
 var Module = (function() {
   var _scriptDir = typeof document !== 'undefined' && document.currentScript ? document.currentScript.src : undefined;
-  
+
   return (
 function(Module) {
   Module = Module || {};
 
 
 
-// The Module object: Our interface to the outside world. We import
-// and export values on it. There are various ways Module can be used:
-// 1. Not defined. We create it here
-// 2. A function parameter, function(Module) { ..generated code.. }
-// 3. pre-run appended it, var Module = {}; ..generated code..
-// 4. External script tag defines var Module.
-// We need to check if Module already exists (e.g. case 3 above).
-// Substitution will be replaced with actual code on later stage of the build,
-// this way Closure Compiler will not mangle it (e.g. case 4. above).
-// Note that if you want to run closure, and also to use Module
-// after the generated code, you will need to define   var Module = {};
-// before the code. Then that object will be used in the code, and you
-// can continue to use Module afterwards as well.
+// // The Module object: Our interface to the outside world. We import
+// // and export values on it. There are various ways Module can be used:
+// // 1. Not defined. We create it here
+// // 2. A function parameter, function(Module) { ..generated code.. }
+// // 3. pre-run appended it, var Module = {}; ..generated code..
+// // 4. External script tag defines var Module.
+// // We need to check if Module already exists (e.g. case 3 above).
+// // Substitution will be replaced with actual code on later stage of the build,
+// // this way Closure Compiler will not mangle it (e.g. case 4. above).
+// // Note that if you want to run closure, and also to use Module
+// // after the generated code, you will need to define   var Module = {};
+// // before the code. Then that object will be used in the code, and you
+// // can continue to use Module afterwards as well.
 var Module = typeof Module !== 'undefined' ? Module : {};
 
 // Set up the promise that indicates the Module is initialized
@@ -46,12 +46,12 @@ Module.getRandomValue = (function() {
 })()
 
 
-
-// Sometimes an existing Module object exists with properties
-// meant to overwrite the default module functionality. Here
-// we collect those properties and reapply _after_ we configure
-// the current environment's defaults to avoid having to be so
-// defensive during initialization.
+//
+// // Sometimes an existing Module object exists with properties
+// // meant to overwrite the default module functionality. Here
+// // we collect those properties and reapply _after_ we configure
+// // the current environment's defaults to avoid having to be so
+// // defensive during initialization.
 var moduleOverrides = {};
 var key;
 for (key in Module) {
@@ -74,7 +74,7 @@ var ENVIRONMENT_IS_WORKER = false;
 var ENVIRONMENT_IS_NODE = false;
 var ENVIRONMENT_IS_SHELL = false;
 
-// `/` should be present at the end if `scriptDirectory` is not empty
+// // `/` should be present at the end if `scriptDirectory` is not empty
 var scriptDirectory = '';
 function locateFile(path) {
   if (Module['locateFile']) {
@@ -89,9 +89,9 @@ var read_,
     readBinary,
     setWindowTitle;
 
-// Note that this includes Node.js workers when relevant (pthreads is enabled).
-// Node.js workers are detected as a combination of ENVIRONMENT_IS_WORKER and
-// ENVIRONMENT_IS_NODE.
+// // Note that this includes Node.js workers when relevant (pthreads is enabled).
+// // Node.js workers are detected as a combination of ENVIRONMENT_IS_WORKER and
+// // ENVIRONMENT_IS_NODE.
 if (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER) {
   if (ENVIRONMENT_IS_WORKER) { // Check worker, not web, since window could be polyfilled
     scriptDirectory = self.location.href;
@@ -160,8 +160,8 @@ if (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER) {
 {
 }
 
-// Set up the out() and err() hooks, which are how we can print to stdout or
-// stderr, respectively.
+// // Set up the out() and err() hooks, which are how we can print to stdout or
+// // stderr, respectively.
 var out = Module['print'] || console.log.bind(console);
 var err = Module['printErr'] || console.warn.bind(console);
 
@@ -229,10 +229,10 @@ function warnOnce(text) {
 // Wraps a JS function as a wasm function with a given signature.
 function convertJsFunctionToWasm(func, sig) {
 
-  // If the type reflection proposal is available, use the new
-  // "WebAssembly.Function" constructor.
-  // Otherwise, construct a minimal wasm module importing the JS function and
-  // re-exporting it.
+//   // If the type reflection proposal is available, use the new
+//   // "WebAssembly.Function" constructor.
+//   // Otherwise, construct a minimal wasm module importing the JS function and
+//   // re-exporting it.
   if (typeof WebAssembly.Function === "function") {
     var typeNames = {
       'i': 'i32',
@@ -1055,7 +1055,7 @@ function preRun() {
 function initRuntime() {
   runtimeInitialized = true;
 
-  
+
   callRuntimeCallbacks(__ATINIT__);
 }
 
@@ -1200,7 +1200,7 @@ function isFileURI(filename) {
 
 // end include: URIUtils.js
 var wasmBinaryFile;
-  wasmBinaryFile = 'lnsocket_module.wasm';
+  wasmBinaryFile = 'assets/lnsocket_module.wasm';
   if (!isDataURI(wasmBinaryFile)) {
     wasmBinaryFile = locateFile(wasmBinaryFile);
   }
@@ -1343,7 +1343,7 @@ var tempI64;
 // === Body ===
 
 var ASM_CONSTS = {
-  70824: function() {return Module.getRandomValue();},  
+  70824: function() {return Module.getRandomValue();},
  70860: function() {if (Module.getRandomValue === undefined) { try { var window_ = 'object' === typeof window ? window : self; var crypto_ = typeof window_.crypto !== 'undefined' ? window_.crypto : window_.msCrypto; var randomValuesStandard = function() { var buf = new Uint32Array(1); crypto_.getRandomValues(buf); return buf[0] >>> 0; }; randomValuesStandard(); Module.getRandomValue = randomValuesStandard; } catch (e) { try { var crypto = require('crypto'); var randomValueNodeJS = function() { var buf = crypto.randomBytes(4); return (buf[0] << 24 | buf[1] << 16 | buf[2] << 8 | buf[3]) >>> 0; }; randomValueNodeJS(); Module.getRandomValue = randomValueNodeJS; } catch (e) { throw 'No secure random number generator found'; } } }}
 };
 
@@ -1865,7 +1865,7 @@ async function lnsocket_init() {
 					resolve(val)
 				}
 			}, 5);
-		}) 
+		})
 	}
 
 	function parse_msgtype(buf) {
@@ -1937,7 +1937,7 @@ async function lnsocket_init() {
 
 	LNSocket.prototype.recv = async function lnsocket_recv() {
 		const msg = await this.read()
-		console.log("recv", msg)
+		// console.log("recv", msg)
 		const msgtype = parse_msgtype(msg.slice(0,2))
 		return [msgtype, msg.slice(2)]
 	}
@@ -2040,13 +2040,13 @@ async function lnsocket_init() {
 	LNSocket.prototype.perform_init = async function lnsocket_connect() {
 		await this.read()
 		const our_init = this.make_default_initmsg()
-		console.log("our_init", our_init)
+		// console.log("our_init", our_init)
 		this.write(our_init)
 	}
 
 	LNSocket.prototype.ping_pong = async function lnsocket_ping_pong() {
 		const pingmsg = this.make_ping_msg()
-		console.log("ping", pingmsg)
+		// console.log("ping", pingmsg)
 		this.write(pingmsg)
 		return await this.read()
 	}
