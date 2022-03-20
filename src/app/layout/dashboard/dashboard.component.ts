@@ -20,47 +20,52 @@ declare var $: any;
 export class DashboardComponent implements OnInit {
     wasmReady = new BehaviorSubject<boolean>(false)
     module: any
+    lnsocket: any
 
     constructor() {
-        this.mixedChartEtl();
-        this.lineChartEtl();
-        this.donughtChartEtl();
-        this.mixedLineChartEtl();
     }
 
-    public async getNodeInfo(rune: string): Promise<any> {
+    public async connectNode(ip_addr: string, node_id: string): Promise<any> {
       /* Connect to the lightning node */
       const LNSocket = await lnsocket_init();
 
-      const ln = LNSocket();
+      this.lnsocket = LNSocket();
 
-      ln.genkey();
+      this.lnsocket.genkey();
 
-      await ln.connect_and_init("02cca6c5c966fcf61d121e3a70e03a1cd9eeeea024b26ea666ce974d43b242e636", "104.131.77.55:9999")
-      //
-      var b = await ln.rpc({ method: "getinfo", rune });
-      console.log(b)
-      // this.balances = b['accounts'];
+      await this.lnsocket.connect_and_init(node_id, ip_addr)
+    }
 
-      // var i = await ln.rpc({ method: "listinvoices", rune });
-      // this.invoices = i['invoices'];
-      //
-      // var ie = await ln.rpc({ method: "listincome", rune });
-      // this.incomeEvents = ie['income_events'];
-      //
-      // var p = await ln.rpc({ method: "listpays", rune });
-      // this.pays = await p['pays'];
-      //
-      // this.showData = true
-      // console.log(ie)
+    public async populateData(rune: string): Promise<any> {
+      var b = await this.lnsocket.rpc({ method: "listbalances", rune });
+      this.balances = b.result['accounts'];
+
+      var ie = await this.lnsocket.rpc({ method: "listincome", rune });
+      this.incomeEvents = ie.result['income_events'];
+      for (var idx = 0; idx < this.incomeEvents.length; idx++) {
+	      this.incomeEvents[idx].credit = parseInt(this.incomeEvents[idx].credit)
+	      this.incomeEvents[idx].debit = parseInt(this.incomeEvents[idx].debit)
+      }
+
+      /*
+      var i = await this.lnsocket.rpc({ method: "listinvoices", rune });
+      this.invoices = i.result['invoices'];
+      */
+
+      /*
+      var p = await this.lnsocket.rpc({ method: "listpays", rune });
+      this.pays = await p.result['pays'];
+     */
+
+      this.showData = true
     }
 
     public showData: Boolean = false
 
     public balances: Array<any> = []
-    public invoices:Array<any> = []
+    //public invoices:Array<any> = []
     public incomeEvents: Array<any> = []
-    public pays: Array<any> = []
+    //public pays: Array<any> = []
 
     // public balances: Array<any> = [
     //   {
@@ -249,10 +254,21 @@ export class DashboardComponent implements OnInit {
       "invoice_fee"
     ]
 
-    public runShowData(e) {
+    public async runShowData(e) {
       e.preventDefault();
-      const node = this.getNodeInfo("NZG2PwTxSltQt3JMtlbwz1dxOdNnnssWH5Sztk6pKdM9MTEmbWV0aG9kXmxpc3R8bWV0aG9kXmdldHxtZXRob2Q9c3VtbWFyeSZtZXRob2QvZ2V0c2hhcmVkc2VjcmV0Jm1ldGhvZC9saXN0ZGF0YXN0b3Jl")
-      // this.showData = true;
+      var rune = "NZG2PwTxSltQt3JMtlbwz1dxOdNnnssWH5Sztk6pKdM9MTEmbWV0aG9kXmxpc3R8bWV0aG9kXmdldHxtZXRob2Q9c3VtbWFyeSZtZXRob2QvZ2V0c2hhcmVkc2VjcmV0Jm1ldGhvZC9saXN0ZGF0YXN0b3Jl";
+
+      const ip_addr = "104.131.77.55:9999";
+      const node_id =  "02cca6c5c966fcf61d121e3a70e03a1cd9eeeea024b26ea666ce974d43b242e636";
+      if (this.lnsocket === undefined) {
+	      await this.connectNode(ip_addr, node_id)
+      }
+
+      await this.populateData(rune);
+      this.mixedChartEtl();
+      //this.lineChartEtl();
+      this.donughtChartEtl();
+      this.mixedLineChartEtl();
     }
 
 
@@ -267,7 +283,7 @@ export class DashboardComponent implements OnInit {
 
     public totalEvents: any = this.incomeEvents.length;
     public incomeTotal: any = this.getIncomeTotal();
-    public paysTotal: any = this.getPaysTotal();
+    //public paysTotal: any = this.getPaysTotal();
 
 
     public getIncomeTotal(): any {
@@ -282,6 +298,7 @@ export class DashboardComponent implements OnInit {
       return incomeTotal/1000;
     }
 
+    /*
     public getPaysTotal(): any {
       var paysTotal: any = 0;
       for (var i in this.pays) {
@@ -290,6 +307,7 @@ export class DashboardComponent implements OnInit {
       }
       return paysTotal/1000;
     }
+   */
 
 
     // donughtchart chart
@@ -665,6 +683,7 @@ export class DashboardComponent implements OnInit {
       }
     }
 
+    /*
     public lineChartEtl() {
       for (var i in this.invoices) {
         var amount = this.invoices[i]['msatoshi_received'] / 1000;
@@ -673,6 +692,7 @@ export class DashboardComponent implements OnInit {
         this.linechartlargeLabels.push(t);
       }
     }
+   */
 
     // linechartlarge chart
     public linechartlargeOptions: any = {
