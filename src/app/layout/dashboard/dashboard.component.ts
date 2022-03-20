@@ -30,28 +30,29 @@ export class DashboardComponent implements OnInit {
 
     public async getNodeInfo(rune: string): Promise<any> {
       /* Connect to the lightning node */
-      const LNSocket = await lnsocket_init()
+      const LNSocket = await lnsocket_init();
 
       const ln = LNSocket();
 
       ln.genkey();
 
       await ln.connect_and_init("02cca6c5c966fcf61d121e3a70e03a1cd9eeeea024b26ea666ce974d43b242e636", "104.131.77.55:9999")
+      //
+      var b = await ln.rpc({ method: "getinfo", rune });
+      console.log(b)
+      // this.balances = b['accounts'];
 
-      var b = await ln.rpc({ method: "listbalances", rune });
-      this.balances = b['accounts'];
-
-      var i = await ln.rpc({ method: "listinvoices", rune });
-      this.invoices = i['invoices'];
-
-      var ie = await ln.rpc({ method: "listincome", rune });
-      this.incomeEvents = ie['income_events'];
-
-      var p = await ln.rpc({ method: "listpays", rune });
-      this.pays = await p['pays'];
-
-      this.showData = true
-      console.log(ie)
+      // var i = await ln.rpc({ method: "listinvoices", rune });
+      // this.invoices = i['invoices'];
+      //
+      // var ie = await ln.rpc({ method: "listincome", rune });
+      // this.incomeEvents = ie['income_events'];
+      //
+      // var p = await ln.rpc({ method: "listpays", rune });
+      // this.pays = await p['pays'];
+      //
+      // this.showData = true
+      // console.log(ie)
     }
 
     public showData: Boolean = false
