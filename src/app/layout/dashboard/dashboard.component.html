@@ -71,7 +71,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+    <div class="col-12 col-md-6 col-lg-6 col-xl-6">
       <div class="card border-0 shadow-sm mb-4">
         <div class="background-half text-template-primary-opac-10 h-200"></div>
         <div class="card-header border-0 bg-none">
@@ -82,51 +82,26 @@
           </div>
         </div>
         <div class="card-body text-center">
-          <p class="text-template-primary-light small mb-2">Total</p>
-          <h4 class="font-weight-light mb-0"> {{ incomeTotal }} Sats</h4>
-          <div class="row mt-3">
-            <div class="col-12 col-md-11 mx-auto mw-300">
-              <div class="row">
-                <div class="col-6">
-                  <div class="card border-0 shadow mb-4 bg-template-primary">
-                    <div class="card-body text-center">
-                      <i class="material-icons">shopping_basket</i>
-                      <p class="text-template-primary-light small mb-1">Received</p>
-                      <h6 class="mb-0">{{totalCredit}}</h6>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="card border-0 shadow mb-3 bg-template-primary">
-                    <div class="card-body text-center">
-                      <i class="material-icons">local_shipping</i>
-                      <p class="text-template-primary-light small mb-1">Sent</p>
-                      <h6 class="mb-0">{{totalDebit}}</h6>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <canvas baseChart [datasets]="profitAndLossData" [labels]="profitAndLossLabels" [options]="profitAndLossOptions" [legend]="profitAndLossLegend" [chartType]="profitAndLossType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
         </div>
       </div>
     </div>
-    <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+    <div class="col-12 col-md-6 col-lg-6 col-xl-6">
       <div class="card border-0 shadow-sm mb-4">
         <div class="card-header border-0 bg-none">
           <div class="row">
             <div class="col align-self-center">
-              <p class="fs15">Balance</p>
+              <p class="fs15">Ending Balance</p>
             </div>
           </div>
         </div>
-        <div class="card-body pt-2">
+        <div class="card-body pt-2 mb-3">
           <p class="text-template-primary-light small mb-2 text-center">Total</p>
           <h5 class='text-center'>{{sumNums(donughtchartData[0]['data'])}} Sats</h5>
           <!-- <h5 class='text-center'>{{sumNums(donughtchartData[0]['data'])}}<small class="d-block"><span class="text-template-primary"></span><span class="text-primary">Satoshi Total</span></small></h5> -->
 
           <div class="row align-self-center mt-4">
-            <div class="col-6 text-center align-self-center">
+            <div class="col text-center align-self-center">
               <div class="donughtchart">
                 <canvas baseChart [datasets]="donughtchartData" [labels]="donughtchartLabels" [options]="donughtchartOptions" [legend]="donughtchartLegend" [chartType]="donughtchartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
               </div>
@@ -140,14 +115,14 @@
                   <p>{{ account === 'wallet' ? "Wallet" : 'Account ' + (i+1) }} <small class="d-block"><span class="text-template-primary"></span><span class="text-primary">{{donughtchartData[0]['data'][i]}} Sats</span></small></p>
                 </div>
               </div>
-
             </div>
 
           </div>
         </div>
       </div>
     </div>
-    <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+
+    <!-- <div class="col-12 col-md-6 col-lg-6 col-xl-4">
       <div class="card border-0 shadow-s3 pb-5">
         <div class="card-header border-0 bg-none pb-5">
           <div class="row">
@@ -166,14 +141,14 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="col-12 col-md-6 col-lg-6 col-xl-12 mb-4">
       <div class="card border-0 shadow-sm h-100">
         <div class="card-header border-0 bg-none">
           <div class="row">
             <div class="col">
-              <p class="fs15">Total Cash Flow<br><small class="text-template-primary-light"></small></p>
+              <p class="fs15">Cash Flow Over Time<br><small class="text-template-primary-light"></small></p>
             </div>
           </div>
         </div>
@@ -187,11 +162,32 @@
               <p class="text-template-primary-light">{{ totalCredit }}</p>
             </div>
             <div class="col-6 border-left-dashed">
-              <p class="mb-1"><i class="material-icons text-template-primary-light fs15 vm">album</i> Total Debit</p>
+              <p class="mb-1"><i class="material-icons text-template-warning fs15 vm">album</i> Total Debit</p>
               <p class="text-template-primary-light">{{ totalDebit }}</p>
             </div>
 
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-header border-0 bg-none">
+        <div class="row">
+          <div class="col align-self-center">
+            <p class="fs15">Amount By Tag</p>
+          </div>
+        </div>
+      </div>
+      <div class="card-body pt-2 mb-3">
+        <div class="row align-self-center mt-4">
+          <div class="col text-center align-self-center">
+            <div class="polarchart">
+              <canvas baseChart [datasets]="polarchartData" [labels]="polarchartLabels" [options]="polarchartOptions" [legend]="polarchartLegend" [chartType]="polarchartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

@@ -18,7 +18,7 @@ export class ChartsComponent implements OnInit {
             }
         },
         title: {
-            display: false,
+            display: true,
             text: 'Chart.js Line Chart - Stacked Area'
         },
         tooltips: {

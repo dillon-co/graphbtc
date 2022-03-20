@@ -10,3 +10,7 @@
 .wrapper > .content {
   background-image: radial-gradient(at center center, rgb(80, 137, 145) 0% rgb(0,16,17) 100%) !important
 }
+
+.donughtchart {
+  height: auto;
+}

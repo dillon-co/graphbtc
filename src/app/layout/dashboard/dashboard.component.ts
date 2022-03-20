@@ -26,6 +26,8 @@ export class DashboardComponent implements OnInit {
         this.lineChartEtl();
         this.donughtChartEtl();
         this.mixedLineChartEtl();
+        this.profitAndLossEtl();
+        this.polarChartEtl();
     }
 
     public async getNodeInfo(rune: string): Promise<any> {
@@ -36,10 +38,10 @@ export class DashboardComponent implements OnInit {
 
       ln.genkey();
 
-      await ln.connect_and_init("02cca6c5c966fcf61d121e3a70e03a1cd9eeeea024b26ea666ce974d43b242e636", "104.131.77.55:9999")
-      //
+      await ln.connect_and_init("02cca6c5c966fcf61d121e3a70e03a1cd9eeeea024b26ea666ce974d43b242e636", "104.131.77.55:9999");
+
       var b = await ln.rpc({ method: "getinfo", rune });
-      console.log(b)
+      console.log(JSON.stringify(b.result, undefined, 2))
       // this.balances = b['accounts'];
 
       // var i = await ln.rpc({ method: "listinvoices", rune });
@@ -55,174 +57,175 @@ export class DashboardComponent implements OnInit {
       // console.log(ie)
     }
 
-    public showData: Boolean = false
+    public showData: Boolean = true
 
-    public balances: Array<any> = []
-    public invoices:Array<any> = []
-    public incomeEvents: Array<any> = []
-    public pays: Array<any> = []
+    // public balances: Array<any> = []
+    // public invoices:Array<any> = []
+    // public incomeEvents: Array<any> = []
+    // public pays: Array<any> = []
 
-    // public balances: Array<any> = [
-    //   {
-    //     'account': 'wallet',
-    //     'balances': [{'balance': '9981515000msat', 'coin_type': 'bcrt'}]
-    //   }, {
-    //     'account': 'a5b23dff5177badd6df725cefeb83ceccbfc52dc64a16b38894a41f0ad8fa181',
-    //     'balances': [{'balance': '12981515000msat', 'coin_type': 'bcrt'}]
-    //   }, {
-    //     'account': '27a4a4dd880e861e390517de3e786a237c5ad1f00faab277382664e76b5c3870',
-    //     'balances': [{'balance': '19981515000msat', 'coin_type': 'bcrt'}]
-    //   }
-    // ]
-    // public invoices:Array<any> = [
-    //   {
-    //     'label': '1',
-    //     'bolt11': 'lnbcrt100n1p3z6ywzpp5545vx6adm7jdjk6eahfvjmaw0yuts05qcnjluujg6972av0kxmtsdq8deh47vgxqyjw5qcqp9sp5hlc5srkkuf20wv0q536faap05d90v37s5c4lxeztjxru4mzp6mks9qxsqyssq32kp2dyvcvvvteekqya4ycd5kp9pszx56044qsvwq9pm2q7pj0vrwhvseng8funma294u3nr74pzgn5jqqvjp73r8pqrkph45j4m3ucqcvsuzv',
-    //     'payment_hash': 'a568c36baddfa4d95b59edd2c96fae7938b83e80c4e5fe7248d17caeb1f636d7',
-    //     'msatoshi': 1138191000,
-    //     'amount_msat': '10000msat',
-    //     'status': 'paid',
-    //     'pay_index': 1,
-    //     'msatoshi_received': 1138191000,
-    //     'amount_received_msat': '10000msat',
-    //     'paid_at': 1647120835,
-    //     'payment_preimage': 'c70178f722ac40a86d0142bdfeea984fac97fffcb11137995f3a7cb76db255ef',
-    //     'description': 'no_1',
-    //     'expires_at': 1647725634
-    //   }, {
-    //     'label': '3',
-    //     'bolt11': 'lnbcrt100n1p3z6ywrpp5f4f87n2al6z42wq26m9qh6f527d7sd695vpnsm3uf2agxxcngvysdq8deh47vcxqyjw5qcqp9sp5fnp04ejl5jktrjvtm5xxcejq4awv2u39ghsnmhtrtswf3t04pgpq9qxsqyssqu6e7nuq29cr4phn7nwlyrj4jmug7xgykcs78pm56npa60nkykvz8xvuk27dj6kyfx5deeh6apcntts7fy3s5edp73fclphzwla74x7gqh6xl4d',
-    //     'payment_hash': '4d527f4d5dfe8555380ad6ca0be934579be83745a303386e3c4aba831b134309',
-    //     'msatoshi': 1110020000,
-    //     'amount_msat': '10000msat',
-    //     'status': 'paid',
-    //     'pay_index': 2,
-    //     'msatoshi_received': 111002000,
-    //     'amount_received_msat': '10000msat',
-    //     'paid_at': 1647120836,
-    //     'payment_preimage': '9de956f89a7a7c414e20791e544c29d9b3009c8b334c03e2d7e9ecc9d73cd5de',
-    //     'description': 'no_3',
-    //     'expires_at': 1647725635
-    //   }, {
-    //     'label': '3',
-    //     'bolt11': 'lnbcrt100n1p3z6ywrpp5f4f87n2al6z42wq26m9qh6f527d7sd695vpnsm3uf2agxxcngvysdq8deh47vcxqyjw5qcqp9sp5fnp04ejl5jktrjvtm5xxcejq4awv2u39ghsnmhtrtswf3t04pgpq9qxsqyssqu6e7nuq29cr4phn7nwlyrj4jmug7xgykcs78pm56npa60nkykvz8xvuk27dj6kyfx5deeh6apcntts7fy3s5edp73fclphzwla74x7gqh6xl4d',
-    //     'payment_hash': '4d527f4d5dfe8555380ad6ca0be934579be83745a303386e3c4aba831b134309',
-    //     'msatoshi': 1230010000,
-    //     'amount_msat': '10000msat',
-    //     'status': 'paid',
-    //     'pay_index': 2,
-    //     'msatoshi_received': 1230010000,
-    //     'amount_received_msat': '10000msat',
-    //     'paid_at': 1647120837,
-    //     'payment_preimage': '9de956f89a7a7c414e20791e544c29d9b3009c8b334c03e2d7e9ecc9d73cd5de',
-    //     'description': 'no_3',
-    //     'expires_at': 1647725635
-    //   }, {
-    //     'label': '3',
-    //     'bolt11': 'lnbcrt100n1p3z6ywrpp5f4f87n2al6z42wq26m9qh6f527d7sd695vpnsm3uf2agxxcngvysdq8deh47vcxqyjw5qcqp9sp5fnp04ejl5jktrjvtm5xxcejq4awv2u39ghsnmhtrtswf3t04pgpq9qxsqyssqu6e7nuq29cr4phn7nwlyrj4jmug7xgykcs78pm56npa60nkykvz8xvuk27dj6kyfx5deeh6apcntts7fy3s5edp73fclphzwla74x7gqh6xl4d',
-    //     'payment_hash': '4d527f4d5dfe8555380ad6ca0be934579be83745a303386e3c4aba831b134309',
-    //     'msatoshi': 1142001000,
-    //     'amount_msat': '10000msat',
-    //     'status': 'paid',
-    //     'pay_index': 2,
-    //     'msatoshi_received': 1142001000,
-    //     'amount_received_msat': '10000msat',
-    //     'paid_at': 1647120838,
-    //     'payment_preimage': '9de956f89a7a7c414e20791e544c29d9b3009c8b334c03e2d7e9ecc9d73cd5de',
-    //     'description': 'no_3',
-    //     'expires_at': 1647725635
-    //   }
-    // ]
-    // public incomeEvents: Array<any> = [
-    //   {
-    //     'account': 'a5b23dff5177badd6df725cefeb83ceccbfc52dc64a16b38894a41f0ad8fa181',
-    //     'tag': 'onchain_fee',
-    //     'credit': 0,
-    //     'debit': 980000,
-    //     'currency': 'bcrt',
-    //     'timestamp': 1647120683,
-    //     'txid': '90a11b87bcf865ae3f7d0c94d44a05072dcd32f27fc9ab01dfc6e144a7e61e26'
-    //   }, {
-    //     'account': '27a4a4dd880e861e390517de3e786a237c5ad1f00faab277382664e76b5c3870',
-    //     'tag': 'onchain_fee',
-    //     'credit': 0,
-    //     'debit': 13024000,
-    //     'currency': 'bcrt',
-    //     'timestamp': 1647120675,
-    //     'txid': '5b78b9b8c84385182533c4b3004d6dbe9bb86a4af2d8ce01674d1fb36383d135'
-    //   }, {
-    //     'account': 'wallet',
-    //     'tag': 'onchain_fee',
-    //     'credit': 0,
-    //     'debit': 3277000,
-    //     'currency': 'bcrt',
-    //     'timestamp': 1647120678,
-    //     'txid': '2685b28db8196821933961dea5dae0b608ba46e81c4b5202f12ec94df57a473e'
-    //   }, {
-    //     'account': '27a4a4dd880e861e390517de3e786a237c5ad1f00faab277382664e76b5c3870',
-    //     'tag': 'onchain_fee',
-    //     'credit': 0,
-    //     'debit': 1224000,
-    //     'currency': 'bcrt',
-    //     'timestamp': 1647120680,
-    //     'txid': '203f8599381a9ea6371c1bbd914c55aedb067844b4b432e2ea9bd6a5d6da91f4'
-    //   }, {
-    //     'account': 'wallet',
-    //     'tag': 'deposit',
-    //     'credit': 20000000,
-    //     'debit': 0,
-    //     'currency': 'bcrt',
-    //     'timestamp': 1647120683,
-    //     'outpoint': 'f9717f0809d842619c11e2f85a398df778186db2c94c78c73b2490a90cc0a23f:0'
-    //   }, {
-    //     'account': 'a5b23dff5177badd6df725cefeb83ceccbfc52dc64a16b38894a41f0ad8fa181',
-    //     'tag': 'lease_fee',
-    //     'credit': 6432000,
-    //     'debit': 0,
-    //     'currency': 'bcrt',
-    //     'timestamp': 1647120684
-    //   }, {
-    //     'account': '27a4a4dd880e861e390517de3e786a237c5ad1f00faab277382664e76b5c3870',
-    //     'tag': 'lease_fee',
-    //     'credit': 0,
-    //     'debit': 6432000,
-    //     'currency': 'bcrt',
-    //     'timestamp': 1647120685
-    //   }, {
-    //     'account': 'a5b23dff5177badd6df725cefeb83ceccbfc52dc64a16b38894a41f0ad8fa181',
-    //     'tag': 'invoice',
-    //     'credit': 1000000,
-    //     'debit': 0,
-    //     'currency': 'bcrt',
-    //     'timestamp': 1647120688,
-    //     'payment_id': '0b08781f3ffec55a1cf11ff950805359dce03af94de3b543ff82e9d3d97a4f32'
-    //   }, {
-    //     'account': '27a4a4dd880e861e390517de3e786a237c5ad1f00faab277382664e76b5c3870',
-    //     'tag': 'invoice',
-    //     'credit': 1000000,
-    //     'debit': 0,
-    //     'currency': 'bcrt',
-    //     'timestamp': 1647120689,
-    //     'payment_id': 'e082b925ba5b872a0376a32ac3bfc539ecab12e9f3dd8b20e5c49710300cca2e'
-    //   }, {
-    //     'account': 'wallet',
-    //     'tag': 'journal_entry',
-    //     'credit': 0,
-    //     'debit': 660000,
-    //     'currency': 'bcrt',
-    //     'timestamp': 1647120695
-    //   }
-    // ]
-    // public pays: Array<any> = [{
-    //   'bolt11': 'lnbcrt100n1p3z6ywzpp5545vx6adm7jdjk6eahfvjmaw0yuts05qcnjluujg6972av0kxmtsdq8deh47vgxqyjw5qcqp9sp5hlc5srkkuf20wv0q536faap05d90v37s5c4lxeztjxru4mzp6mks9qxsqyssq32kp2dyvcvvvteekqya4ycd5kp9pszx56044qsvwq9pm2q7pj0vrwhvseng8funma294u3nr74pzgn5jqqvjp73r8pqrkph45j4m3ucqcvsuzv',
-    //   'destination': '022d223620a359a47ff7f7ac447c85c46c923da53389221a0054c11c1e3ca31d59',
-    //   'payment_hash': 'a568c36baddfa4d95b59edd2c96fae7938b83e80c4e5fe7248d17caeb1f636d7',
-    //   'status': 'complete',
-    //   'created_at': 1647120834,
-    //   'preimage': 'c70178f722ac40a86d0142bdfeea984fac97fffcb11137995f3a7cb76db255ef',
-    //   'amount_msat': 10000,
-    //   'amount_sent_msat': 10000
-    // }]
+    public balances: Array<any> = [
+      {
+        'account': 'wallet',
+        'balances': [{'balance': '9981515000msat', 'coin_type': 'bcrt'}]
+      }, {
+        'account': 'a5b23dff5177badd6df725cefeb83ceccbfc52dc64a16b38894a41f0ad8fa181',
+        'balances': [{'balance': '12981515000msat', 'coin_type': 'bcrt'}]
+      }, {
+        'account': '27a4a4dd880e861e390517de3e786a237c5ad1f00faab277382664e76b5c3870',
+        'balances': [{'balance': '19981515000msat', 'coin_type': 'bcrt'}]
+      }
+    ]
+    public invoices:Array<any> = [
+      {
+        'label': '1',
+        'bolt11': 'lnbcrt100n1p3z6ywzpp5545vx6adm7jdjk6eahfvjmaw0yuts05qcnjluujg6972av0kxmtsdq8deh47vgxqyjw5qcqp9sp5hlc5srkkuf20wv0q536faap05d90v37s5c4lxeztjxru4mzp6mks9qxsqyssq32kp2dyvcvvvteekqya4ycd5kp9pszx56044qsvwq9pm2q7pj0vrwhvseng8funma294u3nr74pzgn5jqqvjp73r8pqrkph45j4m3ucqcvsuzv',
+        'payment_hash': 'a568c36baddfa4d95b59edd2c96fae7938b83e80c4e5fe7248d17caeb1f636d7',
+        'msatoshi': 1138191000,
+        'amount_msat': '10000msat',
+        'status': 'paid',
+        'pay_index': 1,
+        'msatoshi_received': 1138191000,
+        'amount_received_msat': '10000msat',
+        'paid_at': 1647120835,
+        'payment_preimage': 'c70178f722ac40a86d0142bdfeea984fac97fffcb11137995f3a7cb76db255ef',
+        'description': 'no_1',
+        'expires_at': 1647725634
+      }, {
+        'label': '3',
+        'bolt11': 'lnbcrt100n1p3z6ywrpp5f4f87n2al6z42wq26m9qh6f527d7sd695vpnsm3uf2agxxcngvysdq8deh47vcxqyjw5qcqp9sp5fnp04ejl5jktrjvtm5xxcejq4awv2u39ghsnmhtrtswf3t04pgpq9qxsqyssqu6e7nuq29cr4phn7nwlyrj4jmug7xgykcs78pm56npa60nkykvz8xvuk27dj6kyfx5deeh6apcntts7fy3s5edp73fclphzwla74x7gqh6xl4d',
+        'payment_hash': '4d527f4d5dfe8555380ad6ca0be934579be83745a303386e3c4aba831b134309',
+        'msatoshi': 1110020000,
+        'amount_msat': '10000msat',
+        'status': 'paid',
+        'pay_index': 2,
+        'msatoshi_received': 111002000,
+        'amount_received_msat': '10000msat',
+        'paid_at': 1647120836,
+        'payment_preimage': '9de956f89a7a7c414e20791e544c29d9b3009c8b334c03e2d7e9ecc9d73cd5de',
+        'description': 'no_3',
+        'expires_at': 1647725635
+      }, {
+        'label': '3',
+        'bolt11': 'lnbcrt100n1p3z6ywrpp5f4f87n2al6z42wq26m9qh6f527d7sd695vpnsm3uf2agxxcngvysdq8deh47vcxqyjw5qcqp9sp5fnp04ejl5jktrjvtm5xxcejq4awv2u39ghsnmhtrtswf3t04pgpq9qxsqyssqu6e7nuq29cr4phn7nwlyrj4jmug7xgykcs78pm56npa60nkykvz8xvuk27dj6kyfx5deeh6apcntts7fy3s5edp73fclphzwla74x7gqh6xl4d',
+        'payment_hash': '4d527f4d5dfe8555380ad6ca0be934579be83745a303386e3c4aba831b134309',
+        'msatoshi': 1230010000,
+        'amount_msat': '10000msat',
+        'status': 'paid',
+        'pay_index': 2,
+        'msatoshi_received': 1230010000,
+        'amount_received_msat': '10000msat',
+        'paid_at': 1647120837,
+        'payment_preimage': '9de956f89a7a7c414e20791e544c29d9b3009c8b334c03e2d7e9ecc9d73cd5de',
+        'description': 'no_3',
+        'expires_at': 1647725635
+      }, {
+        'label': '3',
+        'bolt11': 'lnbcrt100n1p3z6ywrpp5f4f87n2al6z42wq26m9qh6f527d7sd695vpnsm3uf2agxxcngvysdq8deh47vcxqyjw5qcqp9sp5fnp04ejl5jktrjvtm5xxcejq4awv2u39ghsnmhtrtswf3t04pgpq9qxsqyssqu6e7nuq29cr4phn7nwlyrj4jmug7xgykcs78pm56npa60nkykvz8xvuk27dj6kyfx5deeh6apcntts7fy3s5edp73fclphzwla74x7gqh6xl4d',
+        'payment_hash': '4d527f4d5dfe8555380ad6ca0be934579be83745a303386e3c4aba831b134309',
+        'msatoshi': 1142001000,
+        'amount_msat': '10000msat',
+        'status': 'paid',
+        'pay_index': 2,
+        'msatoshi_received': 1142001000,
+        'amount_received_msat': '10000msat',
+        'paid_at': 1647120838,
+        'payment_preimage': '9de956f89a7a7c414e20791e544c29d9b3009c8b334c03e2d7e9ecc9d73cd5de',
+        'description': 'no_3',
+        'expires_at': 1647725635
+      }
+    ]
+    public incomeEvents: Array<any> = [
+      {
+        'account': 'a5b23dff5177badd6df725cefeb83ceccbfc52dc64a16b38894a41f0ad8fa181',
+        'tag': 'onchain_fee',
+        'credit': 0,
+        'debit': 980000,
+        'currency': 'bcrt',
+        'timestamp': 1647120683,
+        'txid': '90a11b87bcf865ae3f7d0c94d44a05072dcd32f27fc9ab01dfc6e144a7e61e26'
+      }, {
+        'account': '27a4a4dd880e861e390517de3e786a237c5ad1f00faab277382664e76b5c3870',
+        'tag': 'onchain_fee',
+        'credit': 0,
+        'debit': 13024000,
+        'currency': 'bcrt',
+        'timestamp': 1647120675,
+        'txid': '5b78b9b8c84385182533c4b3004d6dbe9bb86a4af2d8ce01674d1fb36383d135'
+      }, {
+        'account': 'wallet',
+        'tag': 'onchain_fee',
+        'credit': 0,
+        'debit': 3277000,
+        'currency': 'bcrt',
+        'timestamp': 1647120678,
+        'txid': '2685b28db8196821933961dea5dae0b608ba46e81c4b5202f12ec94df57a473e'
+      }, {
+        'account': '27a4a4dd880e861e390517de3e786a237c5ad1f00faab277382664e76b5c3870',
+        'tag': 'onchain_fee',
+        'credit': 0,
+        'debit': 1224000,
+        'currency': 'bcrt',
+        'timestamp': 1647120680,
+        'txid': '203f8599381a9ea6371c1bbd914c55aedb067844b4b432e2ea9bd6a5d6da91f4'
+      }, {
+        'account': 'wallet',
+        'tag': 'deposit',
+        'credit': 20000000,
+        'debit': 0,
+        'currency': 'bcrt',
+        'timestamp': 1647120683,
+        'outpoint': 'f9717f0809d842619c11e2f85a398df778186db2c94c78c73b2490a90cc0a23f:0'
+      }, {
+        'account': 'a5b23dff5177badd6df725cefeb83ceccbfc52dc64a16b38894a41f0ad8fa181',
+        'tag': 'lease_fee',
+        'credit': 6432000,
+        'debit': 0,
+        'currency': 'bcrt',
+        'timestamp': 1647120684
+      }, {
+        'account': '27a4a4dd880e861e390517de3e786a237c5ad1f00faab277382664e76b5c3870',
+        'tag': 'lease_fee',
+        'credit': 0,
+        'debit': 6432000,
+        'currency': 'bcrt',
+        'timestamp': 1647120685
+      }, {
+        'account': 'a5b23dff5177badd6df725cefeb83ceccbfc52dc64a16b38894a41f0ad8fa181',
+        'tag': 'invoice',
+        'credit': 1000000,
+        'debit': 0,
+        'currency': 'bcrt',
+        'timestamp': 1647120688,
+        'payment_id': '0b08781f3ffec55a1cf11ff950805359dce03af94de3b543ff82e9d3d97a4f32'
+      }, {
+        'account': '27a4a4dd880e861e390517de3e786a237c5ad1f00faab277382664e76b5c3870',
+        'tag': 'invoice',
+        'credit': 1000000,
+        'debit': 0,
+        'currency': 'bcrt',
+        'timestamp': 1647120689,
+        'payment_id': 'e082b925ba5b872a0376a32ac3bfc539ecab12e9f3dd8b20e5c49710300cca2e'
+      }, {
+        'account': 'wallet',
+        'tag': 'journal_entry',
+        'credit': 0,
+        'debit': 660000,
+        'currency': 'bcrt',
+        'timestamp': 1647120695
+      }
+    ]
+    public pays: Array<any> = [{
+      'bolt11': 'lnbcrt100n1p3z6ywzpp5545vx6adm7jdjk6eahfvjmaw0yuts05qcnjluujg6972av0kxmtsdq8deh47vgxqyjw5qcqp9sp5hlc5srkkuf20wv0q536faap05d90v37s5c4lxeztjxru4mzp6mks9qxsqyssq32kp2dyvcvvvteekqya4ycd5kp9pszx56044qsvwq9pm2q7pj0vrwhvseng8funma294u3nr74pzgn5jqqvjp73r8pqrkph45j4m3ucqcvsuzv',
+      'destination': '022d223620a359a47ff7f7ac447c85c46c923da53389221a0054c11c1e3ca31d59',
+      'payment_hash': 'a568c36baddfa4d95b59edd2c96fae7938b83e80c4e5fe7248d17caeb1f636d7',
+      'status': 'complete',
+      'created_at': 1647120834,
+      'preimage': 'c70178f722ac40a86d0142bdfeea984fac97fffcb11137995f3a7cb76db255ef',
+      'amount_msat': 10000,
+      'amount_sent_msat': 10000
+    }]
+
     public incomeTags: Array<string> = [
       "deposit",
       "withdrawal",
@@ -299,7 +302,7 @@ export class DashboardComponent implements OnInit {
                 borderWidth: 0
             }
         },
-        cutoutPercentage: 40,
+        cutoutPercentage: 30,
         responsive: true,
         aspectRatio: '1',
         legend: {
@@ -539,17 +542,17 @@ export class DashboardComponent implements OnInit {
 
     public mixedchartjsData: any[] = [
         {
-            label: 'My First dataset',
+            label: 'Credit',
             borderWidth: '1',
             borderColor: 'rgba(144, 181, 255, 0)',
             backgroundColor: 'rgba(91, 146, 255, 0.70) ',
             data: []
         },
         {
-            label: 'My Second dataset',
+            label: 'Debit',
             borderWidth: '1',
-            borderColor: 'rgba(91, 146, 255, 0)',
-            backgroundColor: 'rgba(91, 146, 255, 0.5) ',
+            backgroundColor: '#ff6e73',
+            borderColor: '#ff6e73',
             data: []
         }
     ];
@@ -560,7 +563,7 @@ export class DashboardComponent implements OnInit {
         var credit = this.incomeEvents[i]['credit']/1000
         var t = this.incomeEvents[i]['timestamp']
         if (debit > 0) {
-          this.mixedchartjsData[1]['data'].push(debit);
+          this.mixedchartjsData[1]['data'].push(debit * -1);
           this.mixedchartjsData[0]['data'].push(0);
           this.totalDebit += debit
         }
@@ -569,8 +572,103 @@ export class DashboardComponent implements OnInit {
           this.mixedchartjsData[1]['data'].push(0);
           this.totalCredit += credit
         }
-        this.mixedchartjsLabels.push(t);
+        this.mixedchartjsLabels.push(this.formatTime(t));
       }
+    }
+
+    public profitAndLossOptions: any = {
+        responsive: true,
+        maintainAspectRatio: true,
+        elements: {
+            point: {
+                radius: 0
+            }
+        },
+        title: {
+            display: false,
+            text: 'Total Profit And Loss'
+        },
+        tooltips: {
+            mode: 'index'
+        },
+        hover: {
+            mode: 'index'
+        },
+        legend: {
+            display: true,
+            position: 'bottom'
+        },
+        scales: {
+            xAxes: [
+                {
+                    ticks: {
+                        display: false,
+                        fontColor: '#90b5ff'
+                    },
+                    scaleLabel: {
+                        display: false,
+                        labelString: 'Total  |  Profit  |  Loss '
+                    }
+                }
+            ],
+            yAxes: [
+                {
+                    ticks: {
+                        display: true,
+                        fontColor: '#90b5ff'
+                    },
+                    display: true,
+                    stacked: true,
+                    scaleLabel: {
+                        display: false,
+                        labelString: 'Value'
+                    }
+                }
+            ]
+        }
+    };
+    public profitAndLossLabels: string[] = [''];
+
+    public profitAndLossType: string;
+    public profitAndLossLegend: boolean;
+
+
+    // Profit and loss chart
+    public profitAndLossData: any[] = [
+      {
+        label: 'Total',
+        borderWidth: '0',
+        backgroundColor: '#1FC96E',
+        borderColor: '#1FC96E',
+        data: [],
+      },
+      {
+        label: 'Profit',
+        borderWidth: '0',
+        backgroundColor: 'rgba(91, 146, 255, 0.70)',
+        borderColor: 'rgba(91, 146, 255, 0.70)',
+        data: [],
+      },
+      {
+        label: 'Loss',
+        borderWidth: '0',
+        backgroundColor: '#ff6e73',
+        borderColor: '#ff6e73',
+        data: [],
+      },
+    ]
+
+    public profitAndLossEtl(): any {
+      var profit = 0
+      var loss = 0
+      for (var i in this.incomeEvents) {
+        profit += this.incomeEvents[i]['credit'];
+        loss += this.incomeEvents[i]['debit'];
+      }
+      var total = profit - loss;
+      this.profitAndLossData[0]['data'].push(total / 1000)
+      this.profitAndLossData[1]['data'].push(profit / 1000)
+      this.profitAndLossData[2]['data'].push((loss * -1) / 1000)
     }
 
     // line chart
@@ -633,6 +731,68 @@ export class DashboardComponent implements OnInit {
 
     ];
 
+    // Polar chart
+    public polarchartOptions: any = {
+        responsive: true,
+            legend: {
+                display: false,
+                position: 'right',
+            },
+            title: {
+                display: false,
+                text: 'Chart.js Polar Area Chart'
+            },
+            // scale: {
+            //     ticks: {
+            //         beginAtZero: true
+            //     },
+            //     reverse: false
+            // },
+            animation: {
+                animateRotate: false,
+                animateScale: true
+            }
+    };
+    public polarchartLabels: string[] = [];
+    public polarchartType: string;
+    public polarchartLegend: boolean;
+
+    public polarchartData: any[] = [
+        {
+            data: [],
+            backgroundColor: [
+                '#ff6e73',
+                '#ff7600',
+                '#ffc322',
+                '#0fddad',
+                '#5B92FF',
+            ],
+            borderColor: 'rgb(0, 0, 0, 0)',
+            label: 'My dataset' // for legend
+        }
+    ];
+
+    public polarChartEtl() {
+      var dataByTag: any = {}
+      for (var i in this.incomeEvents) {
+        var debit = this.incomeEvents[i]['debit']/1000;
+        var credit = this.incomeEvents[i]['credit']/1000;
+        var total = credit + debit;
+        var t = this.incomeEvents[i]['timestamp']
+        var tag = this.incomeEvents[i]['tag']
+        if (dataByTag.hasOwnProperty(tag)) {
+          dataByTag[tag] += total
+        } else {
+          console.log(tag)
+          dataByTag[tag] = total
+        }
+      }
+      for (var i in dataByTag) {
+        this.polarchartLabels.push(i);
+        this.polarchartData[0]['data'].push(dataByTag[i]);
+      }
+    }
+
     public mixedLineChartEtl() {
       for (var i in this.incomeEvents) {
         var debit = this.incomeEvents[i]['debit']/1000;
@@ -661,14 +821,14 @@ export class DashboardComponent implements OnInit {
             backgroundColor: 'rgba(0, 0, 0, 0)'
           })
         }
-        this.mixedlinechartjsLabels.push(t);
+        this.mixedlinechartjsLabels.push(this.formatTime(t));
       }
     }
 
     public lineChartEtl() {
       for (var i in this.invoices) {
         var amount = this.invoices[i]['msatoshi_received'] / 1000;
-        var t = this.invoices[i]['paid_at'];
+        var t = this.formatTime(this.invoices[i]['paid_at']);
         this.linechartlargeData[0]['data'].push(amount);
         this.linechartlargeLabels.push(t);
       }
@@ -712,7 +872,7 @@ export class DashboardComponent implements OnInit {
             yAxes: [
                 {
                     ticks: {
-                        display: false,
+                        display: true,
                         fontColor: '#90b5ff'
                     },
                     display: false,
@@ -821,14 +981,43 @@ export class DashboardComponent implements OnInit {
          */
     }
 
+    public formatTime(unix_timestamp: any): any {
+      // let unix_timestamp = 1549312452
+      // Create a new JavaScript Date object based on the timestamp
+      // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+      var date = new Date(unix_timestamp * 1000);
+      var month = date.getMonth();
+      var year = date.getFullYear();
+      var day = date.getDay();
+      // return date
+      // Hours part from the timestamp
+      var hours = date.getHours();
+      // // Minutes part from the timestamp
+      var minutes = "0" + date.getMinutes();
+      // // Seconds part from the timestamp
+      var seconds = "0" + date.getSeconds();
+      //
+      // // Will display time in 10:30:23 format
+      var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+      var formattedDate = day + '/' + month;
+      // return formattedTime;
+      return formattedDate + ' ' + formattedTime
+      // return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+      // return new Date(unix_timestamp * 1000).getDate();
+
+    }
+
     ngOnInit() {
         this.summaryChart1Type = 'line';
         this.summaryChart2Type = 'bar';
-        this.mixedchartjsType = 'line';
+        this.mixedchartjsType = 'bar';
+        this.profitAndLossType = 'bar';
         this.mixedlinechartjsType = 'line';
         this.donughtchartType = 'doughnut';
         this.linechartlargeType = 'line';
         this.barchartsType = 'bar';
+        this.polarchartType = 'pie';
+        // this.polarchartType = 'polarArea';
 
 	/* Connect to the lightning node */
 
