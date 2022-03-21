@@ -1954,7 +1954,10 @@ async function lnsocket_init() {
 				chunks.push(msg.slice(8))
 				break
 			default:
-				console.log("got unknown type", typ)
+				hex = '';
+				for (var i = 0; i < msg.length; i++)
+					hex += Number(msg[i]).toString(16).padStart(2, '0');		
+				console.log("got unknown type", typ, hex);
 				continue
 			}
 		}

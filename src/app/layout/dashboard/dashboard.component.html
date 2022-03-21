@@ -106,7 +106,7 @@
                 <canvas baseChart [datasets]="donughtchartData" [labels]="donughtchartLabels" [options]="donughtchartOptions" [legend]="donughtchartLegend" [chartType]="donughtchartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
               </div>
             </div>
-            <div class="col">
+            <!-- <div class="col">
               <div class="row mb-1" *ngFor="let account of donughtchartLabels; let i = index">
                 <div class="col-auto">
                   <i class="material-icons fs15 vm" [ngStyle]="{'color': donughtchartData[0]['backgroundColor'][i]}">album</i>
@@ -115,7 +115,7 @@
                   <p>{{ account === 'wallet' ? "Wallet" : 'Account ' + (i+1) }} <small class="d-block"><span class="text-template-primary"></span><span class="text-primary">{{donughtchartData[0]['data'][i]}} Sats</span></small></p>
                 </div>
               </div>
-            </div>
+            </div> -->
 
           </div>
         </div>
@@ -171,7 +171,7 @@
       </div>
     </div>
   </div>
-  <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+  <div class="col-12 col-md-6 col-lg-6 col-xl-12">
     <div class="card border-0 shadow-sm mb-4">
       <div class="card-header border-0 bg-none">
         <div class="row">
@@ -185,6 +185,17 @@
           <div class="col text-center align-self-center">
             <div class="polarchart">
               <canvas baseChart [datasets]="polarchartData" [labels]="polarchartLabels" [options]="polarchartOptions" [legend]="polarchartLegend" [chartType]="polarchartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="row mb-1" *ngFor="let tag of polarchartLabels; let i = index">
+              <div class="col-4">
+                <i class="material-icons fs15 vm" [ngStyle]="{'color': donughtchartData[0]['backgroundColor'][i]}">album</i>
+              </div>
+              <div class="col pl-0">
+                <p>{{ tag }} <small class="d-block"><span class="text-template-primary"></span><span class="text-primary">{{polarchartData[0]['data'][i]}} Sats</span></small></p>
+              </div>
             </div>
           </div>
 
