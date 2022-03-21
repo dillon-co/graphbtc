@@ -1036,7 +1036,7 @@ export class DashboardComponent implements OnInit {
         this.donughtchartType = 'doughnut';
         this.linechartlargeType = 'line';
         this.barchartsType = 'bar';
-        this.polarchartType = 'polarArea';
+        this.polarchartType = 'pie';
         // this.polarchartType = 'polarArea';
 
 	/* Connect to the lightning node */
