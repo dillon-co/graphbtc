@@ -1,10 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 
-// import * as Module from '../../../lnsocket';
-// import * as lnsocket_init from '../../../assets/lnsocket';
-
-// import { lnsocket_init } from '../../../lnsocket';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import { filter, map, tap, flatMap } from 'rxjs/operators';
 
@@ -47,15 +43,11 @@ export class DashboardComponent implements OnInit {
 	      this.incomeEvents[idx].debit = parseInt(this.incomeEvents[idx].debit)
       }
 
-      /*
       var i = await this.lnsocket.rpc({ method: "listinvoices", rune });
       this.invoices = i.result['invoices'];
-      */
 
-      /*
       var p = await this.lnsocket.rpc({ method: "listpays", rune });
       this.pays = await p.result['pays'];
-     */
 
       this.showData = true
     }
@@ -63,9 +55,9 @@ export class DashboardComponent implements OnInit {
     public showData: Boolean = false
 
     public balances: Array<any> = []
-    //public invoices:Array<any> = []
+    public invoices:Array<any> = []
     public incomeEvents: Array<any> = []
-    //public pays: Array<any> = []
+    public pays: Array<any> = []
 
     // public balances: Array<any> = [
     //   {
@@ -258,15 +250,15 @@ export class DashboardComponent implements OnInit {
       e.preventDefault();
       var rune = "NZG2PwTxSltQt3JMtlbwz1dxOdNnnssWH5Sztk6pKdM9MTEmbWV0aG9kXmxpc3R8bWV0aG9kXmdldHxtZXRob2Q9c3VtbWFyeSZtZXRob2QvZ2V0c2hhcmVkc2VjcmV0Jm1ldGhvZC9saXN0ZGF0YXN0b3Jl";
 
-      const ip_addr = "104.131.77.55:9999";
+      const hostname = "ws://104.131.77.55:9999";
       const node_id =  "02cca6c5c966fcf61d121e3a70e03a1cd9eeeea024b26ea666ce974d43b242e636";
       if (this.lnsocket === undefined) {
-	      await this.connectNode(ip_addr, node_id)
+	      await this.connectNode(hostname, node_id)
       }
 
       await this.populateData(rune);
       this.mixedChartEtl();
-      // this.lineChartEtl();
+      this.lineChartEtl();
       this.donughtChartEtl();
       this.mixedLineChartEtl();
       this.profitAndLossEtl();
@@ -285,7 +277,7 @@ export class DashboardComponent implements OnInit {
 
     public totalEvents: any = this.incomeEvents.length;
     public incomeTotal: any = this.getIncomeTotal();
-    //public paysTotal: any = this.getPaysTotal();
+    public paysTotal: any = this.getPaysTotal();
 
 
     public getIncomeTotal(): any {
@@ -300,7 +292,6 @@ export class DashboardComponent implements OnInit {
       return incomeTotal/1000;
     }
 
-    /*
     public getPaysTotal(): any {
       var paysTotal: any = 0;
       for (var i in this.pays) {
@@ -309,7 +300,6 @@ export class DashboardComponent implements OnInit {
       }
       return paysTotal/1000;
     }
-   */
 
 
     // donughtchart chart
@@ -843,7 +833,6 @@ export class DashboardComponent implements OnInit {
       }
     }
 
-    /*
     public lineChartEtl() {
       for (var i in this.invoices) {
         var amount = this.invoices[i]['msatoshi_received'] / 1000;
@@ -852,7 +841,6 @@ export class DashboardComponent implements OnInit {
         this.linechartlargeLabels.push(t);
       }
     }
-   */
 
     // linechartlarge chart
     public linechartlargeOptions: any = {
