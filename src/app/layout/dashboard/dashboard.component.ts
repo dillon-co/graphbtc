@@ -1,16 +1,16 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core'
-import { routerTransition } from '../../router.animations'
+import { Component, OnInit, AfterViewInit } from "@angular/core"
+import { routerTransition } from "../../router.animations"
 
-import { Observable, BehaviorSubject, of } from 'rxjs'
-import { filter, map, tap, flatMap } from 'rxjs/operators'
-import { lnsocket_init } from 'lnsocketbykevin'
+import { Observable, BehaviorSubject, of } from "rxjs"
+import { filter, map, tap, flatMap } from "rxjs/operators"
+import { lnsocket_init } from "lnsocketbykevin"
 
 declare var $: any
 
 @Component({
-    selector: 'app-dashboard',
-    templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.scss'],
+    selector: "app-dashboard",
+    templateUrl: "./dashboard.component.html",
+    styleUrls: ["./dashboard.component.scss"],
     animations: [routerTransition()],
 })
 export class DashboardComponent implements OnInit {
@@ -32,11 +32,11 @@ export class DashboardComponent implements OnInit {
     }
 
     public async populateData(rune: string): Promise<any> {
-        var b = await this.lnsocket.rpc({ method: 'listbalances', rune })
-        this.balances = b.result['accounts']
+        var b = await this.lnsocket.rpc({ method: "listbalances", rune })
+        this.balances = b.result["accounts"]
 
-        var ie = await this.lnsocket.rpc({ method: 'listincome', rune })
-        this.incomeEvents = ie.result['income_events']
+        var ie = await this.lnsocket.rpc({ method: "listincome", rune })
+        this.incomeEvents = ie.result["income_events"]
         for (var idx = 0; idx < this.incomeEvents.length; idx++) {
             this.incomeEvents[idx].credit = parseInt(
                 this.incomeEvents[idx].credit
@@ -46,11 +46,11 @@ export class DashboardComponent implements OnInit {
             )
         }
 
-        var i = await this.lnsocket.rpc({ method: 'listinvoices', rune })
-        this.invoices = i.result['invoices']
+        var i = await this.lnsocket.rpc({ method: "listinvoices", rune })
+        this.invoices = i.result["invoices"]
 
-        var p = await this.lnsocket.rpc({ method: 'listpays', rune })
-        this.pays = await p.result['pays']
+        var p = await this.lnsocket.rpc({ method: "listpays", rune })
+        this.pays = await p.result["pays"]
 
         this.showData = true
     }
@@ -224,39 +224,39 @@ export class DashboardComponent implements OnInit {
     //   'amount_sent_msat': 10000
     // }]
     public incomeTags: Array<string> = [
-        'deposit',
-        'withdrawal',
-        'penalty',
-        'invoice',
-        'routed',
-        'pushed',
-        'channel_open',
-        'channel_close',
-        'delayed_to_us',
-        'htlc_timeout',
-        'htlc_fulfill',
-        'htlc_tx',
-        'to_wallet',
-        'ignored',
-        'anchor',
-        'to_them',
-        'penalized',
-        'stolen',
-        'to_miner',
-        'lease_fee',
-        'journal_entry',
-        'penalty_adj',
-        'invoice_fee',
+        "deposit",
+        "withdrawal",
+        "penalty",
+        "invoice",
+        "routed",
+        "pushed",
+        "channel_open",
+        "channel_close",
+        "delayed_to_us",
+        "htlc_timeout",
+        "htlc_fulfill",
+        "htlc_tx",
+        "to_wallet",
+        "ignored",
+        "anchor",
+        "to_them",
+        "penalized",
+        "stolen",
+        "to_miner",
+        "lease_fee",
+        "journal_entry",
+        "penalty_adj",
+        "invoice_fee",
     ]
 
     public async runShowData(e) {
         e.preventDefault()
         var rune =
-            'NZG2PwTxSltQt3JMtlbwz1dxOdNnnssWH5Sztk6pKdM9MTEmbWV0aG9kXmxpc3R8bWV0aG9kXmdldHxtZXRob2Q9c3VtbWFyeSZtZXRob2QvZ2V0c2hhcmVkc2VjcmV0Jm1ldGhvZC9saXN0ZGF0YXN0b3Jl'
+            "NZG2PwTxSltQt3JMtlbwz1dxOdNnnssWH5Sztk6pKdM9MTEmbWV0aG9kXmxpc3R8bWV0aG9kXmdldHxtZXRob2Q9c3VtbWFyeSZtZXRob2QvZ2V0c2hhcmVkc2VjcmV0Jm1ldGhvZC9saXN0ZGF0YXN0b3Jl"
 
-        const hostname = 'ws://104.131.77.55:9999'
+        const hostname = "ws://104.131.77.55:9999"
         const node_id =
-            '02cca6c5c966fcf61d121e3a70e03a1cd9eeeea024b26ea666ce974d43b242e636'
+            "02cca6c5c966fcf61d121e3a70e03a1cd9eeeea024b26ea666ce974d43b242e636"
         if (this.lnsocket === undefined) {
             await this.connectNode(hostname, node_id)
         }
@@ -287,8 +287,8 @@ export class DashboardComponent implements OnInit {
         var incomeTotal: any = 0
         for (var i in this.incomeEvents) {
             var ie = this.incomeEvents[i]
-            var debit: any = ie['debit']
-            var credit: any = ie['credit']
+            var debit: any = ie["debit"]
+            var credit: any = ie["credit"]
             incomeTotal += credit
             incomeTotal -= debit
         }
@@ -299,7 +299,7 @@ export class DashboardComponent implements OnInit {
         var paysTotal: any = 0
         for (var i in this.pays) {
             var p = this.pays[i]
-            paysTotal += p['amount_sent_msat']
+            paysTotal += p["amount_sent_msat"]
         }
         return paysTotal / 1000
     }
@@ -313,13 +313,13 @@ export class DashboardComponent implements OnInit {
         },
         cutoutPercentage: 30,
         responsive: true,
-        aspectRatio: '1',
+        aspectRatio: "1",
         legend: {
             display: false,
         },
         title: {
             display: false,
-            text: 'Chart.js Doughnut Chart',
+            text: "Chart.js Doughnut Chart",
         },
         animation: {
             animateScale: true,
@@ -344,16 +344,16 @@ export class DashboardComponent implements OnInit {
             backgroundColor: [],
             // backgroundColor: ['#5B92FF', '#1FC96E', '#F85778', '#F85779'],
             // backgroundColor: [],
-            label: 'Dataset 1',
+            label: "Dataset 1",
         },
     ]
 
     public donughtChartEtl() {
         for (var i in this.balances) {
-            var balance = parseInt(this.balances[i]['balances'][0]['balance'])
-            var account = this.balances[i]['account']
-            this.donughtchartData[0]['data'].push(balance / 1000)
-            this.donughtchartData[0]['backgroundColor'].push(this.randomColor())
+            var balance = parseInt(this.balances[i]["balances"][0]["balance"])
+            var account = this.balances[i]["account"]
+            this.donughtchartData[0]["data"].push(balance / 1000)
+            this.donughtchartData[0]["backgroundColor"].push(this.randomColor())
             this.donughtchartLabels.push(account.slice(0, 6))
         }
     }
@@ -375,15 +375,15 @@ export class DashboardComponent implements OnInit {
         maintainAspectRatio: false,
         title: {
             display: false,
-            text: 'Chart.js Line Chart',
+            text: "Chart.js Line Chart",
         },
         tooltips: {
-            mode: 'index',
+            mode: "index",
             intersect: false,
             enabled: false,
         },
         hover: {
-            mode: 'nearest',
+            mode: "nearest",
             intersect: true,
         },
         legend: {
@@ -395,7 +395,7 @@ export class DashboardComponent implements OnInit {
                     display: false,
                     scaleLabel: {
                         display: true,
-                        labelString: 'Month',
+                        labelString: "Month",
                     },
                 },
             ],
@@ -404,20 +404,20 @@ export class DashboardComponent implements OnInit {
                     display: false,
                     scaleLabel: {
                         display: true,
-                        labelString: 'Value',
+                        labelString: "Value",
                     },
                 },
             ],
         },
     }
     public summaryChart1Labels: string[] = [
-        '2006',
-        '2007',
-        '2008',
-        '2009',
-        '2010',
-        '2011',
-        '2012',
+        "2006",
+        "2007",
+        "2008",
+        "2009",
+        "2010",
+        "2011",
+        "2012",
     ]
     public summaryChart1Type: string
     public summaryChart1Legend: boolean
@@ -426,10 +426,10 @@ export class DashboardComponent implements OnInit {
     public summaryChart1Data: any[] = [
         {
             data: [65, 59, 80, 81, 56, 55, 40],
-            label: 'Series A',
-            backgroundColor: 'transparent',
-            borderColor: '#FFFFFF',
-            borderWidth: '1.5',
+            label: "Series A",
+            backgroundColor: "transparent",
+            borderColor: "#FFFFFF",
+            borderWidth: "1.5",
             radius: 0,
             fill: false,
         },
@@ -442,15 +442,15 @@ export class DashboardComponent implements OnInit {
         maintainAspectRatio: false,
         title: {
             display: false,
-            text: 'Chart.js Line Chart',
+            text: "Chart.js Line Chart",
         },
         tooltips: {
-            mode: 'index',
+            mode: "index",
             intersect: false,
             enabled: false,
         },
         hover: {
-            mode: 'nearest',
+            mode: "nearest",
             intersect: true,
         },
         legend: {
@@ -464,7 +464,7 @@ export class DashboardComponent implements OnInit {
                     },
                     scaleLabel: {
                         display: false,
-                        labelString: 'Month',
+                        labelString: "Month",
                     },
                 },
             ],
@@ -477,20 +477,20 @@ export class DashboardComponent implements OnInit {
                     stacked: true,
                     scaleLabel: {
                         display: false,
-                        labelString: 'Value',
+                        labelString: "Value",
                     },
                 },
             ],
         },
     }
     public summaryChart2Labels: string[] = [
-        '2006',
-        '2007',
-        '2008',
-        '2009',
-        '2010',
-        '2011',
-        '2012',
+        "2006",
+        "2007",
+        "2008",
+        "2009",
+        "2010",
+        "2011",
+        "2012",
     ]
     public summaryChart2Type: string
     public summaryChart2Legend: boolean
@@ -498,10 +498,10 @@ export class DashboardComponent implements OnInit {
     public summaryChart2Data: any[] = [
         {
             data: [65, 59, 80, 81, 56, 55, 40],
-            label: 'Series A',
-            backgroundColor: '#FFFFFF',
-            borderColor: 'transparent',
-            borderWidth: '1.5',
+            label: "Series A",
+            backgroundColor: "#FFFFFF",
+            borderColor: "transparent",
+            borderWidth: "1.5",
             radius: 0,
             fill: false,
         },
@@ -518,13 +518,13 @@ export class DashboardComponent implements OnInit {
         },
         title: {
             display: false,
-            text: 'Chart.js Line Chart - Stacked Area',
+            text: "Chart.js Line Chart - Stacked Area",
         },
         tooltips: {
-            mode: 'index',
+            mode: "index",
         },
         hover: {
-            mode: 'index',
+            mode: "index",
         },
         legend: {
             display: false,
@@ -534,11 +534,11 @@ export class DashboardComponent implements OnInit {
                 {
                     ticks: {
                         display: true,
-                        fontColor: '#90b5ff',
+                        fontColor: "#90b5ff",
                     },
                     scaleLabel: {
                         display: false,
-                        labelString: 'Month',
+                        labelString: "Month",
                     },
                 },
             ],
@@ -546,13 +546,13 @@ export class DashboardComponent implements OnInit {
                 {
                     ticks: {
                         display: true,
-                        fontColor: '#90b5ff',
+                        fontColor: "#90b5ff",
                     },
                     display: true,
                     stacked: true,
                     scaleLabel: {
                         display: false,
-                        labelString: 'Value',
+                        labelString: "Value",
                     },
                 },
             ],
@@ -565,34 +565,34 @@ export class DashboardComponent implements OnInit {
 
     public mixedchartjsData: any[] = [
         {
-            label: 'Credit',
-            borderWidth: '1',
-            borderColor: 'rgba(144, 181, 255, 0)',
-            backgroundColor: 'rgba(91, 146, 255, 0.70) ',
+            label: "Credit",
+            borderWidth: "1",
+            borderColor: "rgba(144, 181, 255, 0)",
+            backgroundColor: "rgba(91, 146, 255, 0.70) ",
             data: [],
         },
         {
-            label: 'Debit',
-            borderWidth: '1',
-            backgroundColor: '#ff6e73',
-            borderColor: '#ff6e73',
+            label: "Debit",
+            borderWidth: "1",
+            backgroundColor: "#ff6e73",
+            borderColor: "#ff6e73",
             data: [],
         },
     ]
 
     public mixedChartEtl() {
         for (var i in this.incomeEvents) {
-            var debit = this.incomeEvents[i]['debit'] / 1000
-            var credit = this.incomeEvents[i]['credit'] / 1000
-            var t = this.incomeEvents[i]['timestamp']
+            var debit = this.incomeEvents[i]["debit"] / 1000
+            var credit = this.incomeEvents[i]["credit"] / 1000
+            var t = this.incomeEvents[i]["timestamp"]
             if (debit > 0) {
-                this.mixedchartjsData[1]['data'].push(debit * -1)
-                this.mixedchartjsData[0]['data'].push(0)
+                this.mixedchartjsData[1]["data"].push(debit * -1)
+                this.mixedchartjsData[0]["data"].push(0)
                 this.totalDebit += debit
             }
             if (credit > 0) {
-                this.mixedchartjsData[0]['data'].push(credit)
-                this.mixedchartjsData[1]['data'].push(0)
+                this.mixedchartjsData[0]["data"].push(credit)
+                this.mixedchartjsData[1]["data"].push(0)
                 this.totalCredit += credit
             }
             this.mixedchartjsLabels.push(this.formatTime(t))
@@ -609,28 +609,28 @@ export class DashboardComponent implements OnInit {
         },
         title: {
             display: false,
-            text: 'Total Profit And Loss',
+            text: "Total Profit And Loss",
         },
         tooltips: {
-            mode: 'index',
+            mode: "index",
         },
         hover: {
-            mode: 'index',
+            mode: "index",
         },
         legend: {
             display: true,
-            position: 'bottom',
+            position: "bottom",
         },
         scales: {
             xAxes: [
                 {
                     ticks: {
                         display: false,
-                        fontColor: '#90b5ff',
+                        fontColor: "#90b5ff",
                     },
                     scaleLabel: {
                         display: false,
-                        labelString: 'Total  |  Profit  |  Loss ',
+                        labelString: "Total  |  Profit  |  Loss ",
                     },
                 },
             ],
@@ -638,19 +638,19 @@ export class DashboardComponent implements OnInit {
                 {
                     ticks: {
                         display: true,
-                        fontColor: '#90b5ff',
+                        fontColor: "#90b5ff",
                     },
                     display: true,
                     stacked: true,
                     scaleLabel: {
                         display: false,
-                        labelString: 'Value',
+                        labelString: "Value",
                     },
                 },
             ],
         },
     }
-    public profitAndLossLabels: string[] = ['']
+    public profitAndLossLabels: string[] = [""]
 
     public profitAndLossType: string
     public profitAndLossLegend: boolean
@@ -658,24 +658,24 @@ export class DashboardComponent implements OnInit {
     // Profit and loss chart
     public profitAndLossData: any[] = [
         {
-            label: 'Total',
-            borderWidth: '0',
-            backgroundColor: '#1FC96E',
-            borderColor: '#1FC96E',
+            label: "Total",
+            borderWidth: "0",
+            backgroundColor: "#1FC96E",
+            borderColor: "#1FC96E",
             data: [],
         },
         {
-            label: 'Profit',
-            borderWidth: '0',
-            backgroundColor: 'rgba(91, 146, 255, 0.70)',
-            borderColor: 'rgba(91, 146, 255, 0.70)',
+            label: "Profit",
+            borderWidth: "0",
+            backgroundColor: "rgba(91, 146, 255, 0.70)",
+            borderColor: "rgba(91, 146, 255, 0.70)",
             data: [],
         },
         {
-            label: 'Loss',
-            borderWidth: '0',
-            backgroundColor: '#ff6e73',
-            borderColor: '#ff6e73',
+            label: "Loss",
+            borderWidth: "0",
+            backgroundColor: "#ff6e73",
+            borderColor: "#ff6e73",
             data: [],
         },
     ]
@@ -684,13 +684,13 @@ export class DashboardComponent implements OnInit {
         var profit = 0
         var loss = 0
         for (var i in this.incomeEvents) {
-            profit += this.incomeEvents[i]['credit']
-            loss += this.incomeEvents[i]['debit']
+            profit += this.incomeEvents[i]["credit"]
+            loss += this.incomeEvents[i]["debit"]
         }
         var total = profit - loss
-        this.profitAndLossData[0]['data'].push(total / 1000)
-        this.profitAndLossData[1]['data'].push(profit / 1000)
-        this.profitAndLossData[2]['data'].push((loss * -1) / 1000)
+        this.profitAndLossData[0]["data"].push(total / 1000)
+        this.profitAndLossData[1]["data"].push(profit / 1000)
+        this.profitAndLossData[2]["data"].push((loss * -1) / 1000)
     }
 
     // line chart
@@ -704,13 +704,13 @@ export class DashboardComponent implements OnInit {
         },
         title: {
             display: false,
-            text: 'Chart.js Line Chart - Stacked Area',
+            text: "Chart.js Line Chart - Stacked Area",
         },
         tooltips: {
-            mode: 'index',
+            mode: "index",
         },
         hover: {
-            mode: 'index',
+            mode: "index",
         },
         legend: {
             display: false,
@@ -720,11 +720,11 @@ export class DashboardComponent implements OnInit {
                 {
                     ticks: {
                         display: true,
-                        fontColor: '#90b5ff',
+                        fontColor: "#90b5ff",
                     },
                     scaleLabel: {
                         display: false,
-                        labelString: 'Month',
+                        labelString: "Month",
                     },
                 },
             ],
@@ -732,13 +732,13 @@ export class DashboardComponent implements OnInit {
                 {
                     ticks: {
                         display: true,
-                        fontColor: '#90b5ff',
+                        fontColor: "#90b5ff",
                     },
                     display: true,
                     stacked: true,
                     scaleLabel: {
                         display: false,
-                        labelString: 'Value',
+                        labelString: "Value",
                     },
                 },
             ],
@@ -756,11 +756,11 @@ export class DashboardComponent implements OnInit {
         responsive: true,
         legend: {
             display: false,
-            position: 'right',
+            position: "right",
         },
         title: {
             display: false,
-            text: 'Chart.js Polar Area Chart',
+            text: "Chart.js Polar Area Chart",
         },
         // scale: {
         //     ticks: {
@@ -781,25 +781,25 @@ export class DashboardComponent implements OnInit {
         {
             data: [],
             backgroundColor: [
-                '#ff6e73',
-                '#ff7600',
-                '#ffc322',
-                '#0fddad',
-                '#5B92FF',
+                "#ff6e73",
+                "#ff7600",
+                "#ffc322",
+                "#0fddad",
+                "#5B92FF",
             ],
-            borderColor: 'rgb(0, 0, 0, 0)',
-            label: 'My dataset', // for legend
+            borderColor: "rgb(0, 0, 0, 0)",
+            label: "My dataset", // for legend
         },
     ]
 
     public polarChartEtl() {
         var dataByTag: any = {}
         for (var i in this.incomeEvents) {
-            var debit = this.incomeEvents[i]['debit'] / 1000
-            var credit = this.incomeEvents[i]['credit'] / 1000
+            var debit = this.incomeEvents[i]["debit"] / 1000
+            var credit = this.incomeEvents[i]["credit"] / 1000
             var total = credit + debit
-            var t = this.incomeEvents[i]['timestamp']
-            var tag = this.incomeEvents[i]['tag']
+            var t = this.incomeEvents[i]["timestamp"]
+            var tag = this.incomeEvents[i]["tag"]
             if (dataByTag.hasOwnProperty(tag)) {
                 dataByTag[tag] += total
             } else {
@@ -809,26 +809,26 @@ export class DashboardComponent implements OnInit {
         }
         for (var i in dataByTag) {
             this.polarchartLabels.push(i)
-            this.polarchartData[0]['data'].push(dataByTag[i])
+            this.polarchartData[0]["data"].push(dataByTag[i])
         }
     }
 
     public mixedLineChartEtl() {
         for (var i in this.incomeEvents) {
-            var debit = this.incomeEvents[i]['debit'] / 1000
-            var credit = this.incomeEvents[i]['credit'] / 1000
+            var debit = this.incomeEvents[i]["debit"] / 1000
+            var credit = this.incomeEvents[i]["credit"] / 1000
             var total = credit - debit
-            var t = this.incomeEvents[i]['timestamp']
-            var tag = this.incomeEvents[i]['tag']
+            var t = this.incomeEvents[i]["timestamp"]
+            var tag = this.incomeEvents[i]["tag"]
             var hasDataWithTag: Boolean
             if (this.mixedlinechartjsData.length > 0) {
                 for (var i in this.mixedlinechartjsData) {
                     hasDataWithTag = false
-                    if (this.mixedlinechartjsData[i]['label'] === tag) {
+                    if (this.mixedlinechartjsData[i]["label"] === tag) {
                         hasDataWithTag = true
-                        this.mixedlinechartjsData[i]['data'].push(total)
+                        this.mixedlinechartjsData[i]["data"].push(total)
                     } else {
-                        this.mixedlinechartjsData[i]['data'].push(0)
+                        this.mixedlinechartjsData[i]["data"].push(0)
                     }
                 }
             }
@@ -836,9 +836,9 @@ export class DashboardComponent implements OnInit {
                 this.mixedlinechartjsData.push({
                     data: [total],
                     label: tag,
-                    borderWidth: '2',
+                    borderWidth: "2",
                     borderColor: this.randomColor(),
-                    backgroundColor: 'rgba(0, 0, 0, 0)',
+                    backgroundColor: "rgba(0, 0, 0, 0)",
                 })
             }
             this.mixedlinechartjsLabels.push(this.formatTime(t))
@@ -847,9 +847,9 @@ export class DashboardComponent implements OnInit {
 
     public lineChartEtl() {
         for (var i in this.invoices) {
-            var amount = this.invoices[i]['msatoshi_received'] / 1000
-            var t = this.formatTime(this.invoices[i]['paid_at'])
-            this.linechartlargeData[0]['data'].push(amount)
+            var amount = this.invoices[i]["msatoshi_received"] / 1000
+            var t = this.formatTime(this.invoices[i]["paid_at"])
+            this.linechartlargeData[0]["data"].push(amount)
             this.linechartlargeLabels.push(t)
         }
     }
@@ -865,13 +865,13 @@ export class DashboardComponent implements OnInit {
         },
         title: {
             display: false,
-            text: 'Chart.js Line Chart - Stacked Area',
+            text: "Chart.js Line Chart - Stacked Area",
         },
         tooltips: {
-            mode: 'index',
+            mode: "index",
         },
         hover: {
-            mode: 'index',
+            mode: "index",
         },
         legend: {
             display: false,
@@ -881,11 +881,11 @@ export class DashboardComponent implements OnInit {
                 {
                     ticks: {
                         display: true,
-                        fontColor: '#90b5ff',
+                        fontColor: "#90b5ff",
                     },
                     scaleLabel: {
                         display: false,
-                        labelString: 'Month',
+                        labelString: "Month",
                     },
                 },
             ],
@@ -893,13 +893,13 @@ export class DashboardComponent implements OnInit {
                 {
                     ticks: {
                         display: true,
-                        fontColor: '#90b5ff',
+                        fontColor: "#90b5ff",
                     },
                     display: false,
                     stacked: true,
                     scaleLabel: {
                         display: false,
-                        labelString: 'Value',
+                        labelString: "Value",
                     },
                 },
             ],
@@ -912,10 +912,10 @@ export class DashboardComponent implements OnInit {
     public linechartlargeData: any[] = [
         {
             data: [],
-            label: 'Invoices',
-            borderWidth: '2',
-            borderColor: '#efe9e9',
-            backgroundColor: 'rgba(0, 0, 0, 0)',
+            label: "Invoices",
+            borderWidth: "2",
+            borderColor: "#efe9e9",
+            backgroundColor: "rgba(0, 0, 0, 0)",
         },
         // {
         //     data: [],
@@ -932,14 +932,14 @@ export class DashboardComponent implements OnInit {
         responsive: true,
         legend: {
             display: false,
-            position: 'top',
+            position: "top",
         },
         scales: {
             xAxes: [
                 {
                     ticks: {
                         display: true,
-                        fontColor: '#90b5ff',
+                        fontColor: "#90b5ff",
                     },
                     categoryPercentage: 0.3,
                     barPercentage: 1,
@@ -954,25 +954,25 @@ export class DashboardComponent implements OnInit {
         },
         title: {
             display: false,
-            text: 'Chart.js Bar Chart',
+            text: "Chart.js Bar Chart",
         },
     }
-    public barchartsLabels: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May']
+    public barchartsLabels: string[] = ["Jan", "Feb", "Mar", "Apr", "May"]
     public barchartsType: string
     public barchartsLegend: boolean
 
     public barchartsData: any[] = [
         {
-            label: 'Dataset 1',
-            backgroundColor: '#efe9e9',
-            borderColor: '#efe9e9',
+            label: "Dataset 1",
+            backgroundColor: "#efe9e9",
+            borderColor: "#efe9e9",
             borderWidth: 1,
             data: [30, 20, 35, 15, 20],
         },
         {
-            label: 'Dataset 2',
-            backgroundColor: '#5B92FF',
-            borderColor: '#5B92FF',
+            label: "Dataset 2",
+            backgroundColor: "#5B92FF",
+            borderColor: "#5B92FF",
             borderWidth: 1,
             data: [35, 26, 25, 45, 30],
         },
@@ -1021,36 +1021,36 @@ export class DashboardComponent implements OnInit {
         // Hours part from the timestamp
         var hours = date.getHours()
         // // Minutes part from the timestamp
-        var minutes = '0' + date.getMinutes()
+        var minutes = "0" + date.getMinutes()
         // // Seconds part from the timestamp
-        var seconds = '0' + date.getSeconds()
+        var seconds = "0" + date.getSeconds()
         //
         // // Will display time in 10:30:23 format
         var formattedTime =
-            hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2)
-        var formattedDate = day + '/' + month
+            hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2)
+        var formattedDate = day + "/" + month
         // return formattedTime;
-        return formattedDate + ' ' + formattedTime
+        return formattedDate + " " + formattedTime
         // return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
         // return new Date(unix_timestamp * 1000).getDate();
     }
 
     ngOnInit() {
-        this.summaryChart1Type = 'line'
-        this.summaryChart2Type = 'bar'
-        this.mixedchartjsType = 'bar'
-        this.profitAndLossType = 'bar'
-        this.mixedlinechartjsType = 'line'
-        this.donughtchartType = 'doughnut'
-        this.linechartlargeType = 'line'
-        this.barchartsType = 'bar'
-        this.polarchartType = 'pie'
+        this.summaryChart1Type = "line"
+        this.summaryChart2Type = "bar"
+        this.mixedchartjsType = "bar"
+        this.profitAndLossType = "bar"
+        this.mixedlinechartjsType = "line"
+        this.donughtchartType = "doughnut"
+        this.linechartlargeType = "line"
+        this.barchartsType = "bar"
+        this.polarchartType = "pie"
         // this.polarchartType = 'polarArea';
 
         /* Connect to the lightning node */
 
-        $('#mapwrap').vectorMap({
-            map: 'world_mill',
+        $("#mapwrap").vectorMap({
+            map: "world_mill",
         })
     }
 
