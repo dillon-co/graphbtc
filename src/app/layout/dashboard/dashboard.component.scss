@@ -7,3 +7,28 @@
     height: 40px;
     width: 60px;
 }
+
+.loadingRotation{
+  animation: rotation 3s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.summary-total {
+  background-color: #1FC96E;
+}
+
+.profit-total {
+  background-color: rgba(91, 146, 255, 0.70);
+}
+
+.loss-total {
+  background-color: #ff6e73;
+}

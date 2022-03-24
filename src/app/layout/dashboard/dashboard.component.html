@@ -10,66 +10,7 @@
         <br/>
       </div>
     </div>
-
 <div *ngIf="showData">
-  <div class="row">
-    <div class="col-12 col-md-6 col-lg-6 col-xl-5">
-      <div class="card border-0 shadow-sm overflow-hidden mb-4">
-        <div class="card-body py-0">
-          <div class="row">
-            <div class="col py-2 pr-0">
-              <p>Total Profit</p><br>
-              <h5 class="font-weight-light mb-2"><small></small> {{ incomeTotal + paysTotal }} Sats</h5>
-            </div>
-            <div class="col-auto bg-primary text-white py-2">
-              <p class="mb-0"><small>+20%<span class="text-mute d-block">Quarter 3</span></small></p>
-              <div class="summary-one">
-                <canvas baseChart [datasets]="summaryChart1Data" [labels]="summaryChart1Labels" [options]="summaryChart1Options" [legend]="summaryChart1Legend" [chartType]="summaryChart1Type" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
-                </canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-md-6 col-lg-6 col-xl-5">
-      <div class="card border-0 shadow-sm overflow-hidden mb-4">
-        <div class="card-body py-0">
-          <div class="row">
-            <div class="col py-2 pr-0">
-              <p>Total Loss</p><br>
-              <h4 class="font-weight-light mb-2">{{paysTotal}} Sats</h4>
-            </div>
-            <div class="col-auto bg-danger  text-white py-2">
-              <p class="mb-0"><small>-20%<span class="text-mute d-block">Oil Selling</span></small></p>
-              <div class="summary-one">
-                <canvas baseChart [datasets]="summaryChart1Data" [labels]="summaryChart1Labels" [options]="summaryChart1Options" [legend]="summaryChart1Legend" [chartType]="summaryChart1Type" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
-                </canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-md-6 col-lg-6 col-xl-2">
-      <div class="card border-0 shadow-sm overflow-hidden mb-4">
-        <div class="card-body py-0">
-          <div class="row">
-            <div class="col py-2 pr-0">
-              <p>Total Income Events</p><br>
-              <h4 class="font-weight-light mb-2">{{totalEvents}}</h4>
-            </div>
-            <!-- <div class="col-auto border-left-dashed py-2">
-              <p class="mb-0"><small>15%<span class="text-mute d-block">On Chain</span></small></p>
-              <div class="summary-small">
-                <canvas baseChart [datasets]="summaryChart2Data" [labels]="summaryChart2Labels" [options]="summaryChart2Options" [legend]="summaryChart2Legend" [chartType]="summaryChart2Type" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-              </div>
-            </div> -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
   <div class="row">
     <div class="col-12 col-md-6 col-lg-6 col-xl-6">
       <div class="card border-0 shadow-sm mb-4">
@@ -77,12 +18,74 @@
         <div class="card-header border-0 bg-none">
           <div class="row">
             <div class="col">
-              <p class="fs15">Net Profits</p>
+              <p class="fs15">Net Profits (In Sats)</p>
             </div>
           </div>
         </div>
         <div class="card-body text-center">
           <canvas baseChart [datasets]="profitAndLossData" [labels]="profitAndLossLabels" [options]="profitAndLossOptions" [legend]="profitAndLossLegend" [chartType]="profitAndLossType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+        </div>
+        <div class="row text-center">
+          <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+            <div class="card border-0 shadow-sm overflow-hidden mb-4">
+              <div class="card-body py-0">
+                <div class="row">
+                  <div class="col-12 summary-total text-white py-2">
+                    <h6 class="mb-0"><span class="text-mute d-block"></span>{{ profitAndLossTotal }}</h6>
+                  </div>
+                  <div class="col py-2 p-0">
+                    <p>Total</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+            <div class="card border-0 shadow-sm overflow-hidden mb-4">
+              <div class="card-body py-0">
+                <div class="row">
+                  <div class="col-12 profit-total text-white py-2">
+                    <h6 class="mb-0"><span class="text-mute d-block"></span>{{ incomeTotal }}</h6>
+                  </div>
+                  <div class="col py-2 p-0">
+                    <p>Profit</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+            <div class="card border-0 shadow-sm overflow-hidden mb-4">
+              <div class="card-body py-0">
+                <div class="row">
+                  <div class="col-12 loss-total text-white py-2">
+                    <h6 class="mb-0"><span class="text-mute d-block"></span> {{ lossTotal }}</h6>
+                  </div>
+                  <div class="col py-2 p-0">
+                    <p>Loss</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-12 col-md-6 col-lg-6 col-xl-2">
+            <div class="card border-0 shadow-sm overflow-hidden mb-4">
+              <div class="card-body py-0">
+                <div class="row">
+                  <div class="col py-2 pr-0">
+                    <p>Total Events</p><br>
+                    <h4 class="font-weight-light mb-2">{{totalEvents}}</h4>
+                  </div>
+                  <div class="col-auto border-left-dashed py-2">
+                    <p class="mb-0"><small>15%<span class="text-mute d-block">On Chain</span></small></p>
+                    <div class="summary-small">
+                      <canvas baseChart [datasets]="summaryChart2Data" [labels]="summaryChart2Labels" [options]="summaryChart2Options" [legend]="summaryChart2Legend" [chartType]="summaryChart2Type" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -95,8 +98,8 @@
             </div>
           </div>
         </div>
-        <div class="card-body pt-2 mb-3">
-          <p class="text-template-primary-light small mb-2 text-center">Total</p>
+        <div class="card-body pt-2 mb-4">
+          <h3 class="mt-2 text-template-primary-light mb-2 text-center">Total</h3>
           <h5 class='text-center'>{{sumNums(donughtchartData[0]['data'])}} Sats</h5>
           <!-- <h5 class='text-center'>{{sumNums(donughtchartData[0]['data'])}}<small class="d-block"><span class="text-template-primary"></span><span class="text-primary">Satoshi Total</span></small></h5> -->
 
@@ -1037,6 +1040,25 @@
     </div>
   </div> -->
 </div>
+
+<div *ngIf="!showData" class="text-center">
+  <div class="align-self-center text-center">
+    <div *ngIf="!isLoading">
+      <img src="assets/images/graphbtc-logo.png" alt="" width="400px">
+      <h2>Welcome to GraphBTC</h2>
+      <h5>Input your lightning node rune to see your cash flow</h5>
+    </div>
+    <div *ngIf="isLoading">
+      <img src="assets/images/animated-logo.png" alt="" width="400px">
+      <!-- <h3>Connecting To Node's Pulse</h3> -->
+      <h2>{{loadingMessage}} . . .</h2>
+      <br/><br/>
+      <h3>Looking good today</h3>
+      <h3>Miss Niftynei</h3>
+    </div>
+  </div>
+</div>
+
 
 
 
