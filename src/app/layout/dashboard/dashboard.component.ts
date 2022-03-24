@@ -23,7 +23,6 @@ export class DashboardComponent implements OnInit {
         /* Connect to the lightning node */
         const LNSocket = await lnsocket_init()
 
-        console.log(LNSocket)
         this.lnsocket = LNSocket()
 
         this.lnsocket.genkey()
