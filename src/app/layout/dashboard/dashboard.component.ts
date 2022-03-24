@@ -33,6 +33,7 @@ export class DashboardComponent implements OnInit {
     }
 
     public async populateData(rune: string): Promise<any> {
+      this.loadingMessage = "Grabbing Data"
       var b = await this.lnsocket.rpc({ method: "listbalances", rune });
       this.balances = b.result['accounts'];
 
@@ -53,6 +54,8 @@ export class DashboardComponent implements OnInit {
     }
 
     public showData: Boolean = false
+    public isLoading: Boolean = false
+    public loadingMessage: String = "Connecting to node"
 
     public balances: Array<any> = []
     public invoices:Array<any> = []
@@ -248,6 +251,7 @@ export class DashboardComponent implements OnInit {
 
     public async runShowData(e) {
       e.preventDefault();
+      this.isLoading = true;
       var rune = "NZG2PwTxSltQt3JMtlbwz1dxOdNnnssWH5Sztk6pKdM9MTEmbWV0aG9kXmxpc3R8bWV0aG9kXmdldHxtZXRob2Q9c3VtbWFyeSZtZXRob2QvZ2V0c2hhcmVkc2VjcmV0Jm1ldGhvZC9saXN0ZGF0YXN0b3Jl";
 
       const hostname = "ws://104.131.77.55:9999";
@@ -257,12 +261,14 @@ export class DashboardComponent implements OnInit {
       }
 
       await this.populateData(rune);
+      this.loadingMessage = "Drawing Charts"
       this.mixedChartEtl();
       this.lineChartEtl();
       this.donughtChartEtl();
       this.mixedLineChartEtl();
       this.profitAndLossEtl();
       this.polarChartEtl();
+      this.isLoading = false;
     }
 
 
@@ -275,9 +281,10 @@ export class DashboardComponent implements OnInit {
     }
     // 1 BTC == 10,000,000 sats; 1sat == 1000 msats
 
-    public totalEvents: any = this.incomeEvents.length;
-    public incomeTotal: any = this.getIncomeTotal();
-    public paysTotal: any = this.getPaysTotal();
+    public totalEvents: any
+    public incomeTotal: any
+    public lossTotal: any
+    public profitAndLossTotal: any
 
 
     public getIncomeTotal(): any {
@@ -597,14 +604,13 @@ export class DashboardComponent implements OnInit {
             text: 'Total Profit And Loss'
         },
         tooltips: {
-            mode: 'index'
+          enabled: false,
         },
         hover: {
-            mode: 'index'
+            mode: null,
         },
         legend: {
-            display: true,
-            position: 'bottom'
+            display: false,
         },
         scales: {
             xAxes: [
@@ -626,7 +632,7 @@ export class DashboardComponent implements OnInit {
                         fontColor: '#90b5ff'
                     },
                     display: true,
-                    stacked: true,
+                    stacked: false,
                     scaleLabel: {
                         display: false,
                         labelString: 'Value'
@@ -674,6 +680,10 @@ export class DashboardComponent implements OnInit {
         loss += this.incomeEvents[i]['debit'];
       }
       var total = profit - loss;
+      this.incomeTotal = profit / 1000;
+      this.lossTotal = loss / 1000;
+      this.totalEvents = this.incomeEvents.length;
+      this.profitAndLossTotal = total / 1000
       this.profitAndLossData[0]['data'].push(total / 1000)
       this.profitAndLossData[1]['data'].push(profit / 1000)
       this.profitAndLossData[2]['data'].push((loss * -1) / 1000)
@@ -783,17 +793,8 @@ export class DashboardComponent implements OnInit {
     public polarChartEtl() {
       var dataByTag: any = {}
       for (var i in this.incomeEvents) {
-        var debit = this.incomeEvents[i]['debit']/1000;
-        var credit = this.incomeEvents[i]['credit']/1000;
-        var total = credit + debit;
-        var t = this.incomeEvents[i]['timestamp']
-        var tag = this.incomeEvents[i]['tag']
-        if (dataByTag.hasOwnProperty(tag)) {
-          dataByTag[tag] += total
-        } else {
-          console.log(tag)
-          dataByTag[tag] = total
-        }
+        var [debit, credit, total, _, tag] = this.incomeEventData(this.incomeEvents[i])
+        dataByTag.hasOwnProperty(tag) ? dataByTag[tag] += total : dataByTag[tag] = total
       }
       for (var i in dataByTag) {
         this.polarchartLabels.push(i);
@@ -802,12 +803,9 @@ export class DashboardComponent implements OnInit {
     }
 
     public mixedLineChartEtl() {
+      var dataByTag: any = {}
       for (var i in this.incomeEvents) {
-        var debit = this.incomeEvents[i]['debit']/1000;
-        var credit = this.incomeEvents[i]['credit']/1000;
-        var total = credit - debit;
-        var t = this.incomeEvents[i]['timestamp']
-        var tag = this.incomeEvents[i]['tag']
+        var [debit, credit, total, time, tag] = this.incomeEventData(this.incomeEvents[i])
         var hasDataWithTag: Boolean
         if (this.mixedlinechartjsData.length > 0) {
           for (var i in this.mixedlinechartjsData) {
@@ -829,7 +827,7 @@ export class DashboardComponent implements OnInit {
             backgroundColor: 'rgba(0, 0, 0, 0)'
           })
         }
-        this.mixedlinechartjsLabels.push(this.formatTime(t));
+        this.mixedlinechartjsLabels.push(this.formatTime(time));
       }
     }
 
@@ -966,6 +964,15 @@ export class DashboardComponent implements OnInit {
         }
     ];
 
+    public incomeEventData(incomeEvent: any): any[] {
+      var debit = incomeEvent['debit'] / 1000;
+      var credit = incomeEvent['credit'] / 1000;
+      var total = credit - debit;
+      var time = incomeEvent['timestamp']
+      var tag = incomeEvent['tag']
+      return [debit, credit, total, time, tag]
+    }
+
     // events
     public chartClicked(e: any): void {
         // console.log(e);
@@ -1007,7 +1014,7 @@ export class DashboardComponent implements OnInit {
       //
       // // Will display time in 10:30:23 format
       var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-      var formattedDate = day + '/' + month;
+      var formattedDate = month + '/' + (day+1) + '/' + year;
       // return formattedTime;
       return formattedDate + ' ' + formattedTime
       // return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
@@ -1028,7 +1035,7 @@ export class DashboardComponent implements OnInit {
         // this.polarchartType = 'polarArea';
 
 	/* Connect to the lightning node */
-
+        // this.runShowData();
         $('#mapwrap').vectorMap({
             map: 'world_mill'
         });
