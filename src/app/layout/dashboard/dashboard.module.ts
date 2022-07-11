@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgbCarouselModule, NgbAlertModule, NgbDropdownModule, NgbTabsetModule } from '@ng-bootstrap/ng-bootstrap';
 import { ChartsModule as Ng2Charts } from 'ng2-charts';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 
@@ -11,13 +10,9 @@ import { StatModule } from '../../shared';
 @NgModule({
     imports: [
         CommonModule,
-        NgbCarouselModule,
-        NgbAlertModule,
         DashboardRoutingModule,
         StatModule,
-        NgbDropdownModule,
         Ng2Charts,
-        NgbTabsetModule,
         // Specify ng-circle-progress as an import
     NgCircleProgressModule.forRoot({
         // set defaults here
