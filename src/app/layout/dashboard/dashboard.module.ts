@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChartsModule as Ng2Charts } from 'ng2-charts';
+import { NgChartsModule as Ng2Charts } from 'ng2-charts';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
